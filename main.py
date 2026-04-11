@@ -12,11 +12,17 @@ import download
 import html_writer
 
 def main():
+    logger.info('OVERHAUL SETS')
     download.overhaul_sets()
+    logger.info('OVERHAUL CARDS')
     download.overhaul_cards()
+    logger.info('GET NEW DECK IDS')
     download.get_new_deck_ids()
+    logger.info('DOWNLAD DECKS')
     download.download_decks()
+    logger.info('WRITE INDEX')
     html_writer.write_index()
+    logger.info('WRITE LEADER PAGES')
     html_writer.write_leader_pages()
 
 if __name__ == '__main__':
