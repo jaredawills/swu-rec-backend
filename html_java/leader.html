@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SWU-Rec - Luke Skywalker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="leader_styles.css">
+</head>
+
+<body>
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-mark"></div>
+      <div>
+        <div class="logo-text-main">SWU‑REC</div>
+        <div class="logo-text-sub">Star Wars: Unlimited Leader Reference</div>
+      </div>
+    </div>
+    <nav>
+      <a href="index.html">Leaders</a>
+      <a href="#">Decks</a>
+      <a href="#">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <nav class="breadcrumbs">
+    <a href="index.html">Leaders</a> &raquo;
+    <a href="#">Spark of Rebellion</a> &raquo;
+    <span>Luke Skywalker</span>
+  </nav>
+
+  <!-- LEADER HEADER -->
+  <section class="leader-header">
+    <div class="leader-title-block">
+      <h1>Luke Skywalker</h1>
+      <div class="leader-subtitle">Galactic Hero · Spark of Rebellion (SOR‑001)</div>
+
+      <div class="leader-tags">
+        <span class="leader-tag-pill">Heroism</span>
+        <span class="leader-tag-pill">Rebel Alliance</span>
+        <span class="leader-tag-pill">Force</span>
+      </div>
+
+      <p class="leader-description">
+        Placeholder description for Luke’s leader profile. Use this to describe the core strategy,
+        typical archetypes, and notable synergies.
+      </p>
+    </div>
+
+    <aside class="leader-images-panel">
+      <h2>Leader Card</h2>
+      <div class="leader-images-grid">
+        <figure class="leader-image-wrapper">
+          <img src="images/leaders/luke-sor-front.jpg" alt="Luke Skywalker leader front">
+        </figure>
+        <figure class="leader-image-wrapper">
+          <img src="images/leaders/luke-sor-back.jpg" alt="Luke Skywalker leader back">
+        </figure>
+      </div>
+    </aside>
+  </section>
+
+  <!-- SET FILTER -->
+  <div class="set-filter">
+    <label for="setFilter">Set:</label>
+    <select id="setFilter">
+      <option value="all">All Sets</option>
+      <option value="sor">Spark of Rebellion</option>
+      <option value="shd">Shadows of the Galaxy</option>
+      <option value="fotf">Frontiers of the Force</option>
+    </select>
+  </div>
+
+  <!-- CARD TYPE FILTER -->
+  <section class="type-filter">
+    <h2>Filter by Card Type</h2>
+    <div class="filter-links-grid">
+      <button class="filter-link type-btn active" data-type="all"><span>All</span> Types</button>
+      <button class="filter-link type-btn" data-type="Unit"><span>Units</span></button>
+      <button class="filter-link type-btn" data-type="Event"><span>Events</span></button>
+      <button class="filter-link type-btn" data-type="Upgrade"><span>Upgrades</span></button>
+      <button class="filter-link type-btn" data-type="Base"><span>Bases</span></button>
+    </div>
+  </section>
+
+  <!-- ASPECT FILTER -->
+  <section class="aspect-filter">
+    <h2>Filter by Aspect</h2>
+    <div class="filter-links-grid">
+      <button class="filter-link aspect-btn active" data-aspect="all"><span>All</span>Aspects</button>
+      <button class="filter-link aspect-btn" data-aspect="Heroism"><span>Heroism</span></button>
+      <button class="filter-link aspect-btn" data-aspect="Villainy"><span>Villainy</span></button>
+      <button class="filter-link aspect-btn" data-aspect="Command"><span>Command</span></button>
+      <button class="filter-link aspect-btn" data-aspect="Aggression"><span>Aggression</span></button>
+      <button class="filter-link aspect-btn" data-aspect="Cunning"><span>Cunning</span></button>
+      <button class="filter-link aspect-btn" data-aspect="Vigilance"><span>Vigilance</span></button>
+    </div>
+  </section>
+
+  <!-- CARD GRID -->
+  <section>
+    <h2>Card Pool</h2>
+    <div class="card-grid">
+
+      %card_grid
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  SWU‑Rec – unofficial Star Wars: Unlimited reference. Card images and game content © their owners.
+</footer>
+
+<script>
+/* ------------------------------
+   FILTER STATE
+------------------------------ */
+let activeTypes = new Set(["all"]);   // unit, event, upgrade, base, all
+let activeAspect = "all";             // heroism, villainy, etc.
+let activeSet = "all";                // sor, sog, fotf, etc.
+
+/* ------------------------------
+   ELEMENTS
+------------------------------ */
+const typeButtons = document.querySelectorAll('.type-btn');
+const aspectButtons = document.querySelectorAll('.aspect-btn');
+const setFilter = document.getElementById('setFilter');
+const cards = document.querySelectorAll('.card-tile');
+
+/* ------------------------------
+   USAGE STATS RENDERING
+------------------------------ */
+function renderUsageStats() {
+  cards.forEach(tile => {
+    const usageContainer = tile.querySelector('.usage-stats');
+    const usageData = JSON.parse(tile.dataset.usage || "{}");
+    usageContainer.innerHTML = "";
+
+    const rows = [
+      { copies: 3, label: "3 copies" },
+      { copies: 2, label: "2 copies" },
+      { copies: 1, label: "1 copy" }
+    ];
+
+    rows.forEach(row => {
+      const pct = usageData[row.copies];
+      if (!pct || pct <= 0) return;
+
+      const div = document.createElement('div');
+      div.className = "usage-row";
+      div.textContent = `${row.label}: ${pct}% of decks`;
+      usageContainer.appendChild(div);
+    });
+  });
+}
+
+/* ------------------------------
+   UNIFIED FILTER ENGINE
+------------------------------ */
+function applyFilters() {
+  cards.forEach(card => {
+    const cardTypes = card.dataset.type.split(" ");
+    const cardAspects = card.dataset.aspect.split(" ");
+    const cardSet = card.dataset.set;
+
+    let visible = true;
+
+    // TYPE FILTER
+    if (!activeTypes.has("all")) {
+      const matchesType = cardTypes.some(t => activeTypes.has(t));
+      if (!matchesType) visible = false;
+    }
+
+    // ASPECT FILTER
+    if (activeAspect !== "all" && !cardAspects.includes(activeAspect)) {
+      visible = false;
+    }
+
+    // SET FILTER
+    if (activeSet !== "all" && cardSet !== activeSet) {
+      visible = false;
+    }
+
+    card.style.display = visible ? "" : "none";
+  });
+}
+
+/* ------------------------------
+   TYPE FILTER HANDLING
+------------------------------ */
+typeButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const type = btn.dataset.type;
+
+    // Reset if "all" is chosen
+    if (type === "all") {
+      activeTypes = new Set(["all"]);
+      typeButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilters();
+      return;
+    }
+
+    // Remove "all" if selecting specific types
+    activeTypes.delete("all");
+
+    // Toggle type
+    if (activeTypes.has(type)) {
+      activeTypes.delete(type);
+      btn.classList.remove('active');
+    } else {
+      activeTypes.add(type);
+      btn.classList.add('active');
+    }
+
+    // If no types selected, revert to "all"
+    if (activeTypes.size === 0) {
+      activeTypes.add("all");
+      typeButtons.forEach(b => b.classList.remove('active'));
+      document.querySelector('.type-btn[data-type="all"]').classList.add('active');
+    }
+
+    applyFilters();
+  });
+});
+
+/* ------------------------------
+   ASPECT FILTER HANDLING
+------------------------------ */
+aspectButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    activeAspect = btn.dataset.aspect;
+
+    aspectButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    applyFilters();
+  });
+});
+
+/* ------------------------------
+   SET FILTER HANDLING
+------------------------------ */
+setFilter.addEventListener('change', () => {
+  activeSet = setFilter.value;
+  applyFilters();
+});
+
+/* ------------------------------
+   INITIALIZE
+------------------------------ */
+renderUsageStats();
+applyFilters();
+</script>
+</body>
+</html>

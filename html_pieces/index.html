@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SWU-Rec</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="index_styles.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-mark"></div>
+        <div>
+          <div class="logo-text-main">SWU-REC</div>
+          <div class="logo-text-sub">Star Wars: Unlimited Deck Recommendations</div>
+        </div>
+      </div>
+      <nav>
+        <a href="index.html">Leaders</a>
+        <a href="#">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="controls-bar" aria-label="Leader filters">
+      <div class="control-group">
+        <label for="setFilter">Set</label>
+        <select id="setFilter" class="control-select">
+          <option value="all">All sets</option>
+          %set_filter
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="searchInput">Search</label>
+        <input
+          id="searchInput"
+          class="control-input"
+          type="search"
+          placeholder="Leader name…"
+          autocomplete="off"
+        >
+      </div>
+    </section>
+
+    %set_sections
+
+    <div id="cardZoomPopup"></div>
+
+  </main>
+
+  <footer>
+    SWU-Rec - unofficial Star Wars: Unlimited reference. Card images and game content © their respective owners.
+  </footer>
+
+  <script>
+    const setFilter = document.getElementById('setFilter');
+    const searchInput = document.getElementById('searchInput');
+    const setSections = document.querySelectorAll('.set-section');
+
+    function applyFilters() {
+      const setValue = setFilter.value;
+      const searchValue = searchInput.value.trim().toLowerCase();
+
+      setSections.forEach(section => {
+        const sectionSet = section.dataset.set;
+        const leaderCards = section.querySelectorAll('.leader-card');
+        let anyVisibleInSection = false;
+
+        leaderCards.forEach(card => {
+          const name = card.dataset.name || '';
+          const matchesSet = setValue === 'all' || sectionSet === setValue;
+          const matchesSearch = !searchValue || name.includes(searchValue);
+
+          if (matchesSet && matchesSearch) {
+            card.classList.remove('hidden');
+            anyVisibleInSection = true;
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+
+        section.style.display = anyVisibleInSection ? '' : 'none';
+      });
+    }
+
+    setFilter.addEventListener('change', applyFilters);
+    searchInput.addEventListener('input', applyFilters);
+
+    function getParams() {
+  const params = new URLSearchParams(window.location.search);
+
+  return {
+    set: params.get("set") || "all",
+  };
+}
+
+  function applyURLFilters() {
+    const { set, types, aspect } = getParams();
+
+    // SET FILTER
+    const setSelect = document.getElementById("setFilter");
+    if (setSelect) {
+      setSelect.value = set;
+      activeSet = set;
+    }
+    applyFilters();
+  }
+
+  document.addEventListener("DOMContentLoaded", applyURLFilters);
+  setFilter.addEventListener('change', applyFilters);
+  searchInput.addEventListener('input', applyFilters);
+
+/* ------------------------------
+   HOVER ZOOM POP-UP
+------------------------------ */
+const zoomPopup = document.getElementById("cardZoomPopup");
+
+document.querySelectorAll(".leader-image-wrapper img").forEach(img => {
+  const zoom = 2.5
+  img.addEventListener("mouseenter", () => {
+    const zoomImg = document.createElement("img");
+    zoomImg.src = img.src;
+    zoomPopup.innerHTML = "";
+    zoomPopup.appendChild(zoomImg);
+
+    zoomPopup.style.width = img.clientWidth * zoom + "px";
+    zoomPopup.style.display = "block";
+  });
+
+  img.addEventListener("mousemove", (e) => {
+    const offset = 20; // distance from cursor
+    zoomPopup.style.left = e.clientX + offset + "px";
+    zoomPopup.style.top = e.clientY - ((zoom / 2) * img.clientHeight) + "px";
+  });
+
+  img.addEventListener("mouseleave", () => {
+    zoomPopup.style.display = "none";
+  });
+});
+
+  </script>
+</body>
+</html>
