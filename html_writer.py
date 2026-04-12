@@ -24,6 +24,10 @@ def write_file(out_file, text):
     with open(out_file, 'wt', encoding='utf-8') as file:
         file.write(text)
 
+def text_replace(mapping, text):
+    for key, value in mapping.items:
+        text = re.sub(key, value, text)
+    return text
 
 def write_index():
     logger.info('Writing index')
@@ -61,13 +65,14 @@ def write_index():
     write_file('html\\index.html', index_html)
             
 
-def get_leader_articles(card_id):
-    query = re.sub('%card_id', card_id, read_file('leader_query.sql'))  
-    results = db_conn.query(query)
+def get_leader_articles(card_grid=[], card_id=None):
+    if type(card_grid) == list:
+        query = re.sub('%card_id', card_id, read_file('leader_query.sql'))  
+        card_grid = db_conn.query(query)
     leader_card_article = read_file('html_pieces/leader_card_article.html')
 
     articles = []
-    for card in results.itertuples():
+    for card in card_grid.itertuples():
         t = leader_card_article[:]
         t = re.sub('%card_type', card.card_type, t)
         aspects = card.aspects if card.aspects else ''
@@ -86,12 +91,14 @@ def get_leader_articles(card_id):
 
 
 def write_set_leader_pages(sets, cards, set_code):
-    set_filters = [f'<option value=\"{set.set_code}\">{set.title}</option>' 
-                    for set in sets.itertuples()
-                    if cards[cards['set_code']==set.set_code].shape[0] > 0]
     leaders = cards[(cards['set_code']==set_code) & (cards['card_type']=='Leader')].sort_values('card_id')
     leader_html = read_file('html_pieces/leader.html')
     for leader in leaders.itertuples():
+        card_grid_query = re.sub('%card_id', leader.card_id, read_file('leader_query.sql'))  
+        card_grid = db_conn.query(card_grid_query)
+        set_filters = [f'<option value=\"{set.set_code}\">{set.title}</option>' 
+                        for set in sets.itertuples()
+                        if set.set_code in card_grid['set_code'].drop_duplicates().values]
         logger.debug(f'Writing {leader.card_id}')
         t = leader_html[:]
         t = re.sub('%title', leader.title, t)
@@ -107,7 +114,7 @@ def write_set_leader_pages(sets, cards, set_code):
         t = re.sub('%front_art', leader.front_art, t)
         t = re.sub('%back_art', leader.back_art, t)
         t = re.sub('%set_filters', '\n'.join(set_filters), t)
-        t = re.sub('%card_grid', get_leader_articles(leader.card_id), t)
+        t = re.sub('%card_grid', get_leader_articles(card_grid=card_grid), t)
         deck_count = db_conn.query(f'SELECT COUNT(*) FROM deck_leaders WHERE card_id = \'{leader.card_id}\'').values[0][0]
         t = re.sub('%decks', str(deck_count), t)
         write_file(f'html/{leader.set_code}/{leader.card_id}.html', t)
