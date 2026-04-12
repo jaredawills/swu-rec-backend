@@ -73,9 +73,9 @@ def get_leader_articles(card_id):
         aspects = card.aspects if card.aspects else ''
         t = re.sub('%aspects', re.sub(',', ' ', aspects), t)
         t = re.sub('%set_code', card.set_code, t)
-        t = re.sub('%copy3', str(round(card.copy3 / card.num_decks * 100, 2)), t)
-        t = re.sub('%copy2', str(round(card.copy2 / card.num_decks * 100, 2)), t)
-        t = re.sub('%copy1', str(round(card.copy1 / card.num_decks * 100, 2)), t)
+        t = re.sub('%copy3', str(round(card.copy3 / card.tot_decks * 100, 2)), t)
+        t = re.sub('%copy2', str(round(card.copy2 / card.tot_decks * 100, 2)), t)
+        t = re.sub('%copy1', str(round(card.copy1 / card.tot_decks * 100, 2)), t)
         t = re.sub('%front_art', card.front_art, t)
         t = re.sub('%title', card.title, t)
         subtitle = card.subtitle if card.subtitle else ''
