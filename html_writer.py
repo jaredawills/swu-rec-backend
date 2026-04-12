@@ -70,7 +70,7 @@ def write_index():
 
 def get_leader_articles(card_grid=[], card_id=None):
     if type(card_grid) == list:
-        query = re.sub('%card_id', card_id, read_file('leader_query.sql'))  
+        query = re.sub('%card_id', card_id, read_file('advanced_leader_query.sql'))  
         card_grid = db_conn.query(query)
     leader_card_article = read_file('html_pieces/leader_card_article.html')
     articles = []
