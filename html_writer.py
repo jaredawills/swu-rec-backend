@@ -17,8 +17,8 @@ from loguru import logger
 def read_file(in_file):
     with open(in_file, 'rt', encoding='utf-8') as file:
         return file.read()
-  
-    
+
+
 def write_file(out_file, text):
     out_file = Path(out_file)
     out_file.parent.mkdir(parents=True, exist_ok=True)
@@ -88,8 +88,6 @@ def get_leader_articles(card_grid=[], card_id=None):
             '%card_num': re.sub('_', '-', card.card_id),
         }
         articles.append(replace_text(sub_map, leader_card_article[:]))
-        t = leader_card_article[:]
-        articles.append(t)
     return '\n'.join(articles)
 
 
@@ -117,8 +115,7 @@ def write_set_leader_pages(sets, cards, set_code):
             '%decks': str(db_conn.query(f'SELECT COUNT(*) FROM deck_leaders WHERE card_id = \'{leader.card_id}\'').values[0][0])
         }
         write_file(f'html/{leader.set_code}/{leader.card_id}.html', replace_text(sub_map, leader_html[:]))
-        
-    
+  
     
 def write_leader_pages():
     sets = db_conn.read('sets')
