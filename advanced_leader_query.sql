@@ -32,7 +32,7 @@ FROM (
     JOIN cards c ON dc.card_id = c.card_id
 ) dc
 JOIN deck_leaders dl ON dl.deck_id = dc.deck_id 
-    AND dl.card_id LIKE '%LAW_001'
+    AND dl.card_id LIKE '%%card_id%'
 JOIN cards c ON dc.card_id = c.card_id
 LEFT JOIN (
     SELECT 

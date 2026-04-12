@@ -96,7 +96,7 @@ def write_set_leader_pages(sets, cards, set_code):
     leader_html = read_file('html_pieces/leader.html')
     for leader in leaders.itertuples():
         logger.debug(f'Writing {leader.card_id}')
-        card_grid_query = re.sub('%card_id', leader.card_id, read_file('leader_query.sql'))  
+        card_grid_query = re.sub('%card_id', leader.card_id, read_file('advanced_leader_query.sql'))  
         card_grid = db_conn.query(card_grid_query)
         sub_map = {
             '%title': leader.title,
