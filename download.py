@@ -20,6 +20,9 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 
 
+Options.page_load_strategy = 'eager'
+
+
 def download_set(set_code):
     logger.debug(f'Downloading Set {set_code} to database')
     api_url = f'https://api.swu-db.com/cards/{set_code}'
@@ -92,7 +95,7 @@ def download_set(set_code):
 def download_set_list():
     url = 'https://www.swudb.com/sets'
     logger.debug('Downloading Driver')
-    service = Service(ChromeDriverManager().install())
+    service = Service(executable_path='')
     options = Options()
     options.add_argument('--headless')
     driver = webdriver.Chrome(service=service, options=options)
@@ -109,11 +112,6 @@ def download_set_list():
     logger.debug(f'Found {len(sets)} sets')
     sets = pd.DataFrame(sets, columns=['set_code', 'title'])
     index = sets[sets['set_code']=='SOR'].index[0]
-    # sets = pd.concat([
-    #     sets.iloc[index:0:-1],
-    #     sets.iloc[[0]],
-    #     sets.iloc[-1:index:-1]
-    # ], ignore_index=True)
     db_conn.write(sets, 'sets')
 
 
