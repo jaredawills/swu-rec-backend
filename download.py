@@ -142,7 +142,7 @@ def scrape_swudb(decks, sortby='top', overlap_threshold=100):
     url = f'https://www.swudb.com/decks/search?deckSort={sortby}'
     pattern = r'href=\"\/deck\/[A-z]*\"'
     logger.debug('Downloading Driver')
-    service = Service(ChromeDriverManager().install())
+    service = Service(executable_path='')
     options = Options()
     options.add_argument('--headless')
     driver = webdriver.Chrome(service=service, options=options)
