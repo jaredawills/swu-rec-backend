@@ -78,7 +78,7 @@ def get_leader_articles(card_grid=[], card_id=None):
         sub_map = {
             '%card_type': card.card_type,
             '%aspects': re.sub(',', ' ', card.aspects if card.aspects else ''),
-            '%set_code': card.set_code,
+            '%set_code': card.set_code if card.set_code else '',
             '%copy3': str(round(card.copy3 / card.tot_decks * 100, 2)),
             '%copy2': str(round(card.copy2 / card.tot_decks * 100, 2)),
             '%copy1': str(round(card.copy1 / card.tot_decks * 100, 2)),

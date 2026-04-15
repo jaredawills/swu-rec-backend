@@ -92,6 +92,7 @@ def query(query):
         return pd.read_sql(query, conn)
         
 
+
 if __name__ == '__main__':
     # # Will Drop and Create Tables, effectively resetting the ENTIRE database
     # create_tables()

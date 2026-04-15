@@ -18,7 +18,7 @@ def main():
     download.overhaul_cards()
     logger.info('GET NEW DECK IDS')
     download.get_new_deck_ids()
-    logger.info('DOWNLAD DECKS')
+    logger.info('DOWNLOAD DECKS')
     download.download_decks()
     logger.info('WRITE INDEX')
     html_writer.write_index()

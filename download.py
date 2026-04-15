@@ -23,6 +23,19 @@ from webdriver_manager.chrome import ChromeDriverManager
 Options.page_load_strategy = 'eager'
 
 
+def read_file(in_file):
+    with open(in_file, 'rt', encoding='utf-8') as file:
+        return file.read()
+
+
+def write_file(out_file, text):
+    out_file = Path(out_file)
+    out_file.parent.mkdir(parents=True, exist_ok=True)
+    with open(out_file, 'wt', encoding='utf-8') as file:
+        file.write(text)
+
+
+
 def download_set(set_code):
     logger.debug(f'Downloading Set {set_code} to database')
     api_url = f'https://api.swu-db.com/cards/{set_code}'
@@ -94,7 +107,7 @@ def download_set(set_code):
 
 def download_set_list():
     url = 'https://www.swudb.com/sets'
-    logger.debug('Downloading Driver')
+    logger.debug('Launching Chrome Driver')
     service = Service(executable_path='')
     options = Options()
     options.add_argument('--headless')
@@ -115,19 +128,16 @@ def download_set_list():
 
 
 def generic_bases():
-    sets = db_conn.read('sets')
-    for condition in [{'ind': '30', 'title': 'Generic Base', 'hp': 30},
-                 {'ind': '28F', 'title': 'Force Base', 'hp': 28, 'frontText': 'FORCE unit attacks'},
-                 {'ind': '28S', 'title': 'Splash Base', 'hp': 27, 'frontText': 'Play a card from your hand, ignoring 1 of its'}]:
-        query = True
-        
+    query = read_file('generic_bases.sql')
+    with db_conn.get_conn() as conn:
+        conn.execute(query)
+        conn.commit()
 
 
 
 def overhaul_sets():
     db_conn.clear_table('sets')
     download_set_list()
-    # generic_bases()
 
 
 def overhaul_cards():
@@ -135,13 +145,14 @@ def overhaul_cards():
     sets = db_conn.read('sets')
     for code in sets['set_code']:
         download_set(code)
+    generic_bases()
 
 
 def scrape_swudb(decks, sortby='top', overlap_threshold=100):
     source = 'swudb'
     url = f'https://www.swudb.com/decks/search?deckSort={sortby}'
     pattern = r'href=\"\/deck\/[A-z]*\"'
-    logger.debug('Downloading Driver')
+    logger.debug('Launching Chrome Driver')
     service = Service(executable_path='')
     options = Options()
     options.add_argument('--headless')
@@ -155,6 +166,7 @@ def scrape_swudb(decks, sortby='top', overlap_threshold=100):
     last_height = driver.execute_script('return document.body.scrollHeight')
     try:
         while (height != last_height or timeout < 40) and overlap < overlap_threshold:
+            overlap = 0
             last_height = height
             driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')
             time.sleep(5)
@@ -219,11 +231,9 @@ def overhaul_deck_ids():
         
 
 def get_new_deck_ids():
-    # deck_ids = pd.DataFrame([], columns=['deck_ids'])
     decks = db_conn.read('decks')
-    # conn = db_conn.get_conn()
-    # decks = pd.read_sql('SELECT * FROM decks', conn)
-    decks = scrape_swudb(decks, sortby='new', overlap_threshold=100)
+    decks = scrape_swudb(decks, sortby='new', overlap_threshold=100) # sortby = 'new' / 'hot' / 'top' / 'discussed'
+    # decks = scrape_swudb(decks, sortby='top', overlap_threshold=10000)
     decks = scrape_sw_unlimited_db(decks, timeout_threshold=100, new_limit=-1)
     decks = decks.drop_duplicates()
     logger.info(f'{decks.shape[0]} total deck_ids')
@@ -324,8 +334,6 @@ if __name__ == '__main__':
     t_0 = time.time()
     overhaul_sets()
     overhaul_cards()
-    get_new_deck_ids()
-    download_decks()
     t_1 = time.time()
     logger.success(f'RUN COMPLETE - {int(t_1 - t_0)}s')
 

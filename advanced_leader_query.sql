@@ -18,13 +18,11 @@ FROM (
         dc.deck_id
         ,CASE
             WHEN c.card_type = 'Base' AND c.hp = 30
-                THEN CASE c.aspects
-                    WHEN 'Vigilance' THEN 'SOR_021'
-                    WHEN 'Command' THEN 'SOR_024'
-                    WHEN 'Aggression' THEN 'SOR_026'
-                    WHEN 'Cunning' THEN 'SOR_030'
-                ELSE dc.card_id
-                -- THEN SUBSTR(c.aspects, 1, 3) || '30'
+                THEN SUBSTR(c.aspects, 1, 3) || '30'
+            WHEN c.card_type = 'Base' AND c.hp = '28' AND c.front_text LIKE '%FORCE unit attacks%'
+                THEN SUBSTR(c.aspects, 1, 3) || '28F'
+            WHEN c.card_type = 'Base' AND c.hp = '27' AND c.front_text LIKE '%hand, ignoring%'
+                THEN SUBSTR(c.aspects, 1, 3) || '27S'
             -- add WHEN for 28S/27F
             ELSE dc.card_id
         END AS [card_id]
@@ -34,6 +32,7 @@ FROM (
 ) dc
 JOIN deck_leaders dl ON dl.deck_id = dc.deck_id 
     AND dl.card_id LIKE '%%card_id%'
+    -- AND dl.card_id LIKE '%LAW_001%'
 JOIN cards c ON dc.card_id = c.card_id
 LEFT JOIN (
     SELECT 
