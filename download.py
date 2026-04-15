@@ -111,13 +111,23 @@ def download_set_list():
         sets = re.findall(pattern, html)
     logger.debug(f'Found {len(sets)} sets')
     sets = pd.DataFrame(sets, columns=['set_code', 'title'])
-    index = sets[sets['set_code']=='SOR'].index[0]
     db_conn.write(sets, 'sets')
+
+
+def generic_bases():
+    sets = db_conn.read('sets')
+    for condition in [{'ind': '30', 'title': 'Generic Base', 'hp': 30},
+                 {'ind': '28F', 'title': 'Force Base', 'hp': 28, 'frontText': 'FORCE unit attacks'},
+                 {'ind': '28S', 'title': 'Splash Base', 'hp': 27, 'frontText': 'Play a card from your hand, ignoring 1 of its'}]:
+        query = True
+        
+
 
 
 def overhaul_sets():
     db_conn.clear_table('sets')
     download_set_list()
+    # generic_bases()
 
 
 def overhaul_cards():

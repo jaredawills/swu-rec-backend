@@ -23,8 +23,9 @@ FROM (
                     WHEN 'Command' THEN 'SOR_024'
                     WHEN 'Aggression' THEN 'SOR_026'
                     WHEN 'Cunning' THEN 'SOR_030'
-                    ELSE dc.card_id
-                END
+                ELSE dc.card_id
+                -- THEN SUBSTR(c.aspects, 1, 3) || '30'
+            -- add WHEN for 28S/27F
             ELSE dc.card_id
         END AS [card_id]
         ,dc.num
