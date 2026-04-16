@@ -1,3 +1,5 @@
+cd ~/swu-rec
+
 # Fetch swu-rec-backend
 git fetch --all
 git reset --hard origin/main
