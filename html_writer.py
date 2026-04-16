@@ -34,9 +34,9 @@ def replace_text(mapping, text):
 
 def write_index():
     logger.info('Writing index')
-    index_html = read_file('html_pieces/index.html')
-    index_set_section = read_file('html_pieces/index_set_section.html')
-    index_set_leader_article = read_file('html_pieces/index_set_leader_article.html')
+    index_html = read_file(path('html_pieces/index.html'))
+    index_set_section = read_file(path('html_pieces/index_set_section.html'))
+    index_set_leader_article = read_file(path('html_pieces/index_set_leader_article.html'))
     sets = db_conn.read('sets')
     cards = db_conn.read('cards')
     set_sections = []
@@ -65,7 +65,7 @@ def write_index():
             set_filter.append(f'<option value=\"{set.set_code}\">{set.title}</option>')
     index_html = re.sub('%set_filter', '\n'.join(set_filter), index_html)
     index_html = re.sub('%set_sections', '\n'.join(set_sections), index_html)
-    write_file('html\\index.html', index_html)
+    write_file(path('html/index.html'), index_html)
             
 
 def get_leader_articles(card_grid=[], card_id=None):
