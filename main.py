@@ -23,6 +23,8 @@ def main():
     refresh_time = time.time()
     logger.info('WRITE INDEX')
     html_writer.write_index(refresh_time)
+    logger.info('WRITE ABOUT')
+    html_writer.write_about(refresh_time)
     logger.info('WRITE LEADER PAGES')
     html_writer.write_leader_pages(refresh_time)
 

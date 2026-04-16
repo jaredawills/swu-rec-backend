@@ -55,14 +55,14 @@ def write_index(refresh_time=None):
                     '%title': leader.title,
                     '%subtitle': leader.subtitle,
                     '%back_art': leader.back_art,
-                    '%set_code': leader.set_code,
-                    '%time': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(refresh_time))
+                    '%set_code': leader.set_code
                 }
                 leader_articles.append(replace_text(sub_map, index_set_leader_article[:]))
             sub_map = {
                 '%set_code': set.set_code,
                 '%title': set.title,
                 '%leader_grid': '\n'.join(leader_articles),
+                '%time': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(refresh_time))
             }
             set_sections.append(replace_text(sub_map, index_set_section[:]))
             set_filter.append(f'<option value=\"{set.set_code}\">{set.title}</option>')
