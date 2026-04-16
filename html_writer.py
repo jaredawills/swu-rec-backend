@@ -133,6 +133,14 @@ def write_leader_pages(refresh_time=None):
             write_set_leader_pages(sets, cards, set.set_code, refresh_time)
 
 
+def write_about(refresh_time=None):
+    refresh_time = refresh_time if refresh_time else time.time()
+    about_html = read_file('html_pieces/about.html')
+    sub = {
+        '%time': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(refresh_time))
+    }
+    replace_text(sub, about_html)
+    write_file('html/about.html', about_html)
 
 if __name__ == '__main__':
     t_0 = time.time()

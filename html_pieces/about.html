@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SWU-Rec - About</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="index_styles.css">
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5EY4762Y17"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5EY4762Y17');
+</script>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo-index">
+      	<div class="logo">
+          <div class="logo-mark"></div>
+          <div>
+            <div class="logo-text-main">SWU-REC</div>
+            <div class="logo-text-sub">Star Wars: Unlimited Deck Recommendations</div>
+          </div>
+        </div>
+	  </a>
+      <nav>
+        <a href="index.html">Leaders</a>
+        <a href="about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-content-wrapper">
+	<div class="page-header">
+		<h1>About</h1>
+    </div>
+	<div class="page-content">
+		<p>
+			Hello!<br>
+			<br>
+			Welcome!<br>
+			<br>
+			This is SWU-Rec, a page made by me <i>(the developer)</i> to help me build decks
+			for Star Wars: Unlimited.<br>
+			<br>
+			It so happens that I am not good at building SWU decks. To help
+			combat that problem I started looking at the data! Inspired by
+			websites like <a href="https://edhrec.com">edhrec</a> I started scraping
+			decklists from popular deck-building websites, and counting how
+			often a card gets used. I was able get a lot of really consistent recommendations
+			to help me build my favourite decks!<br>
+		</p>
+		<h2>Why did I do this?</h2>
+		<p>
+			Normally I would count the above as a pretty good explanation.
+			However, there is a little bit more to it than that.<br>
+			<br>
+			In 2024, I started a Computer Science program at my local college, studying
+			Data Science and Machine Learning. This meant learning Python.<br>
+			<br>
+			I started this project to help practice and cement my understandings
+			of the fundamentals for programming in Python. Lo and behold, it
+			worked. <br>
+			<br>
+			But that first version of the program just gave me data in a CSV.
+			This is <i>(obviously)</i> way beyond that.<br>
+			<br>
+			I already had a little bit of HTML basics under my belt, so I set
+			to work creating the building blocks for a website that I would call
+			<b>SWU-Rec</b>! I developed another Python script to construct those
+			building blocks into full pages. Then I bought a domain name, and started hosting the pages
+			on <a href="https://github.com/jaredawills/swu-rec/">Git Hub</a>.<br>
+			<br>
+			But being honest, I'm not very good at HTML. I can read it, but I do not
+			have the patience or organizational skills to make anything nice. But that
+			was okay! It worked! The data was available, and helped me build a couple
+			of really fun off-meta decks!<br>
+			<br> 
+			<i>Then everything broke.</i><br>
+			<br>
+			It turns out I didn't future-proof enough, and new cards came out, and
+			everything broke. <i>Oops.</i> And to make it worse, the next year of 
+			my college program left me with no remainign free time to try and fix it.
+			Which resulted in everything being put on hold for over a year.<br>
+			<br>
+			Now that I've graduated <i>(congratulate me)</i> I was able to revamp
+			everything! I've learned new tools to make the back end faster. I've
+			found new resources to get more consistent data for future-proofing! And best of all, I 
+			acknowledged that my HTML skills were lacking and worked with Microsoft
+			Copilot to make some <i>way nicer</i> building blocks.<br>
+			<br>
+			Which brings us to today! I've got a future-proof system to scrape decklists and 
+			generate web pages to host for whoever wants to view! 
+		</p>
+		<h2>What's next?</h2>
+		<p>
+			I don't have a lot of major plans for this project. I'm not a javascript
+			programmer and so I won't be adding much for interactive features. One of the 
+			weak points of the project is that I have to manually run the scripts to download
+			new data and rebuild the pages. The website does run on a static system, with no
+			plans for a realtime system <i>(sorry)</i><br>
+			<br>
+			I will continue to try getting other sources for decklists. And I will always take
+			feedback from those in my local community that use this project. They know
+			how to reach me.<br>
+			<br>
+			For my own piece of mind, I'm planning to clone a copy of the repo to local device
+			that I never turn off. There I will create a job to automate running the scripts and
+			pushing the updates to main. 
+			<br>
+			Maybe there are more planned improvements than I thought. Should I make a list?
+		</p>
+		<h3 class="indent">Planned Improvements</h3>
+		<ul class="indent">
+			<li class="indent">Get A Logo</li>
+			<li class="indent"><s>Combine 30hp bases into one "Generic {aspect} Base" tile on leader pages.</s><br>
+								Combine 28hp force bases together<br>
+								Combine 27hp splash bases together</li>
+			<li class="indent">Create a copy-pase json of the "most popular" decklist to upload to Forcetable</li>
+			<li class="indent">Fix the "Card Type">"All Types" Filter button so that it grays out when aother filter is selected</li>
+			<li class="indent">Get an FAQ</li>
+			<li class="indent">Get a "Submit a Quetsion" box <i>(Might be a bad idea, I am only one person after all)</i></li>
+		</ul>
+		<h2>Data Sources</h2>
+		<p>These sources don't know that I'm using some of their data, so I need to make sure to thank them!</p>
+		<h4><a href="https://www.swu-db.com/api">www.swu-db.com/api</a></h4>
+		<p class="indent">This is the source of all the images, and the location I go to to get basic card information in my back end!</p>
+		<h4><a href="https://sw-unlimited-db.com/">sw-unlimited-db.com</a></h4>
+		<p class="indent">
+			This is where <i>most</i> of the decklists that feed my data come from. They've made it very straightforward
+			for me to scrape that information, and it provides us with lots over here! If they change their website layout,
+			we may have a problem...
+		</p>
+		<h4><a href="https://swudb.com/">swudb.com</a></h4>
+		<p class="indent">
+			This is my second source of decklists. Unfortunately their system is a little bit harder to scrape, so I can't
+			get nearly as much information from them. Again, if they change their website layout, we may have a problem...
+		</p>
+		
+	</div>
+		
+	</section>
+  </main>
+
+  <footer>
+    SWU-Rec - unofficial Star Wars: Unlimited reference. Card images and game content © their respective owners.<br>
+    Last Data Refresh: %time
+  </footer>
+
+  <script>
+    const setFilter = document.getElementById('setFilter');
+    const searchInput = document.getElementById('searchInput');
+    const setSections = document.querySelectorAll('.set-section');
+
+    function applyFilters() {
+      const setValue = setFilter.value;
+      const searchValue = searchInput.value.trim().toLowerCase();
+
+      setSections.forEach(section => {
+        const sectionSet = section.dataset.set;
+        const leaderCards = section.querySelectorAll('.leader-card');
+        let anyVisibleInSection = false;
+
+        leaderCards.forEach(card => {
+          const name = card.dataset.name || '';
+          const matchesSet = setValue === 'all' || sectionSet === setValue;
+          const matchesSearch = !searchValue || name.includes(searchValue);
+
+          if (matchesSet && matchesSearch) {
+            card.classList.remove('hidden');
+            anyVisibleInSection = true;
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+
+        section.style.display = anyVisibleInSection ? '' : 'none';
+      });
+    }
+
+    setFilter.addEventListener('change', applyFilters);
+    searchInput.addEventListener('input', applyFilters);
+
+    function getParams() {
+  const params = new URLSearchParams(window.location.search);
+
+  return {
+    set: params.get("set") || "all",
+  };
+}
+
+  function applyURLFilters() {
+    const { set, types, aspect } = getParams();
+
+    // SET FILTER
+    const setSelect = document.getElementById("setFilter");
+    if (setSelect) {
+      setSelect.value = set;
+      activeSet = set;
+    }
+    applyFilters();
+  }
+
+  document.addEventListener("DOMContentLoaded", applyURLFilters);
+  setFilter.addEventListener('change', applyFilters);
+  searchInput.addEventListener('input', applyFilters);
+
+/* ------------------------------
+   HOVER ZOOM POP-UP
+------------------------------ */
+const zoomPopup = document.getElementById("cardZoomPopup");
+
+document.querySelectorAll(".leader-image-wrapper img").forEach(img => {
+  const zoom = 2.5
+  img.addEventListener("mouseenter", () => {
+    const zoomImg = document.createElement("img");
+    zoomImg.src = img.src;
+    zoomPopup.innerHTML = "";
+    zoomPopup.appendChild(zoomImg);
+
+    zoomPopup.style.width = img.clientWidth * zoom + "px";
+    zoomPopup.style.display = "block";
+  });
+
+  img.addEventListener("mousemove", (e) => {
+    const offset = 20; // distance from cursor
+    zoomPopup.style.left = e.clientX + offset + "px";
+    zoomPopup.style.top = e.clientY - ((zoom / 2) * img.clientHeight) + "px";
+  });
+
+  img.addEventListener("mouseleave", () => {
+    zoomPopup.style.display = "none";
+  });
+});
+
+  </script>
+</body>
+</html>
