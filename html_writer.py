@@ -15,12 +15,13 @@ from loguru import logger
 
 
 def read_file(in_file):
+    in_file = Path(in_file) if type(in_file) == str else in_file
     with open(in_file, 'rt', encoding='utf-8') as file:
         return file.read()
 
 
 def write_file(out_file, text):
-    out_file = Path(out_file)
+    out_file = Path(out_file) if type(out_file) == str else out_file
     out_file.parent.mkdir(parents=True, exist_ok=True)
     with open(out_file, 'wt', encoding='utf-8') as file:
         file.write(text)
@@ -34,9 +35,9 @@ def replace_text(mapping, text):
 
 def write_index():
     logger.info('Writing index')
-    index_html = read_file(path('html_pieces/index.html'))
-    index_set_section = read_file(path('html_pieces/index_set_section.html'))
-    index_set_leader_article = read_file(path('html_pieces/index_set_leader_article.html'))
+    index_html = read_file(Path('html_pieces/index.html'))
+    index_set_section = read_file(Path('html_pieces/index_set_section.html'))
+    index_set_leader_article = read_file(Path('html_pieces/index_set_leader_article.html'))
     sets = db_conn.read('sets')
     cards = db_conn.read('cards')
     set_sections = []
@@ -65,7 +66,7 @@ def write_index():
             set_filter.append(f'<option value=\"{set.set_code}\">{set.title}</option>')
     index_html = re.sub('%set_filter', '\n'.join(set_filter), index_html)
     index_html = re.sub('%set_sections', '\n'.join(set_sections), index_html)
-    write_file(path('html/index.html'), index_html)
+    write_file(Path('html/index.html'), index_html)
             
 
 def get_leader_articles(card_grid=[], card_id=None):
@@ -93,7 +94,7 @@ def get_leader_articles(card_grid=[], card_id=None):
 
 def write_set_leader_pages(sets, cards, set_code):
     leaders = cards[(cards['set_code']==set_code) & (cards['card_type']=='Leader')].sort_values('card_id')
-    leader_html = read_file('html_pieces/leader.html')
+    leader_html = read_file(Path('html_pieces/leader.html'))
     for leader in leaders.itertuples():
         logger.debug(f'Writing {leader.card_id}')
         card_grid_query = re.sub('%card_id', leader.card_id, read_file('advanced_leader_query.sql'))  
@@ -114,7 +115,7 @@ def write_set_leader_pages(sets, cards, set_code):
             '%card_grid': get_leader_articles(card_grid=card_grid),
             '%decks': str(db_conn.query(f'SELECT COUNT(*) FROM deck_leaders WHERE card_id = \'{leader.card_id}\'').values[0][0])
         }
-        write_file(f'html/{leader.set_code}/{leader.card_id}.html', replace_text(sub_map, leader_html[:]))
+        write_file(Path(f'html/{leader.set_code}/{leader.card_id}.html'), replace_text(sub_map, leader_html[:]))
   
     
 def write_leader_pages():
