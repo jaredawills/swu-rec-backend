@@ -20,10 +20,11 @@ def main():
     download.get_new_deck_ids()
     logger.info('DOWNLOAD DECKS')
     download.download_decks()
+    refresh_time = time.time()
     logger.info('WRITE INDEX')
-    html_writer.write_index()
+    html_writer.write_index(refresh_time)
     logger.info('WRITE LEADER PAGES')
-    html_writer.write_leader_pages()
+    html_writer.write_leader_pages(refresh_time)
 
 if __name__ == '__main__':
     t_0 = time.time()

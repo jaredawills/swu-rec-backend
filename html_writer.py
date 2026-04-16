@@ -33,7 +33,8 @@ def replace_text(mapping, text):
     return text
 
 
-def write_index():
+def write_index(refresh_time=None):
+    refresh_time = refresh_time if refresh_time else time.time()
     logger.info('Writing index')
     index_html = read_file(Path('html_pieces/index.html'))
     index_set_section = read_file(Path('html_pieces/index_set_section.html'))
@@ -54,7 +55,8 @@ def write_index():
                     '%title': leader.title,
                     '%subtitle': leader.subtitle,
                     '%back_art': leader.back_art,
-                    '%set_code': leader.set_code
+                    '%set_code': leader.set_code,
+                    '%time': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(refresh_time))
                 }
                 leader_articles.append(replace_text(sub_map, index_set_leader_article[:]))
             sub_map = {
@@ -92,7 +94,8 @@ def get_leader_articles(card_grid=[], card_id=None):
     return '\n'.join(articles)
 
 
-def write_set_leader_pages(sets, cards, set_code):
+def write_set_leader_pages(sets, cards, set_code, refresh_time=None):
+    refresh_time = refresh_time if refresh_time else time.time()
     leaders = cards[(cards['set_code']==set_code) & (cards['card_type']=='Leader')].sort_values('card_id')
     leader_html = read_file(Path('html_pieces/leader.html'))
     for leader in leaders.itertuples():
@@ -113,19 +116,21 @@ def write_set_leader_pages(sets, cards, set_code):
             '%back_art': leader.back_art,
             '%set_filters': '\n'.join([f'<option value=\"{set.set_code}\">{set.title}</option>' for set in sets.itertuples() if set.set_code in card_grid['set_code'].drop_duplicates().values]),
             '%card_grid': get_leader_articles(card_grid=card_grid),
-            '%decks': str(db_conn.query(f'SELECT COUNT(*) FROM deck_leaders WHERE card_id = \'{leader.card_id}\'').values[0][0])
+            '%decks': str(db_conn.query(f'SELECT COUNT(*) FROM deck_leaders WHERE card_id = \'{leader.card_id}\'').values[0][0]),
+            '%time': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(refresh_time))
         }
         write_file(Path(f'html/{leader.set_code}/{leader.card_id}.html'), replace_text(sub_map, leader_html[:]))
   
     
-def write_leader_pages():
+def write_leader_pages(refresh_time=None):
+    refresh_time = refresh_time if refresh_time else time.time()
     sets = db_conn.read('sets')
     cards = db_conn.read('cards')
     for set in sets.itertuples():
         set_leaders = cards[(cards['set_code']==set.set_code) & (cards['card_type']=='Leader')].sort_values('card_id')
         if set_leaders.shape[0] > 0:
             logger.info(f'Writing HTML for {set.title} ({set.set_code})')
-            write_set_leader_pages(sets, cards, set.set_code)
+            write_set_leader_pages(sets, cards, set.set_code, refresh_time)
 
 
 
