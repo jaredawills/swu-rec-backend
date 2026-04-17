@@ -11,7 +11,7 @@ git reset --hard origin/main
 cd ..
 
 # Run program
-source ../.swu-rec/bin/activate
+. ../.swu-rec/bin/activate
 python3 main.py
 
 # Commit swu-rec-backend
