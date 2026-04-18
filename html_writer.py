@@ -62,13 +62,15 @@ def write_index(refresh_time=None):
                 '%set_code': set.set_code,
                 '%title': set.title,
                 '%leader_grid': '\n'.join(leader_articles),
-                '%time': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(refresh_time))
             }
             set_sections.append(replace_text(sub_map, index_set_section[:]))
             set_filter.append(f'<option value=\"{set.set_code}\">{set.title}</option>')
-    index_html = re.sub('%set_filter', '\n'.join(set_filter), index_html)
-    index_html = re.sub('%set_sections', '\n'.join(set_sections), index_html)
-    write_file(Path('html/index.html'), index_html)
+    sub_map = {
+        '%set_filter': '\n'.join(set_filter),
+        '%set_sections': '\n'.join(set_sections),
+        '%time': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(refresh_time))
+    }
+    write_file(Path('html/index.html'), replace_text(sub_map, index_html[:]))
             
 
 def get_leader_articles(card_grid=[], card_id=None):
@@ -134,18 +136,19 @@ def write_leader_pages(refresh_time=None):
 
 
 def write_about(refresh_time=None):
+    logger.info('Writing About')
     refresh_time = refresh_time if refresh_time else time.time()
     about_html = read_file('html_pieces/about.html')
     sub = {
         '%time': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(refresh_time))
     }
-    replace_text(sub, about_html)
-    write_file('html/about.html', about_html)
+    write_file('html/about.html', replace_text(sub, about_html[:]))
 
 if __name__ == '__main__':
     t_0 = time.time()
-    write_index()
+    write_index(t_0)
+    write_about(t_0)
     # write_set_leader_pages(db_conn.read('sets'), db_conn.read('cards'), 'LAW')
-    write_leader_pages()
+    # write_leader_pages()
     t_1 = time.time()
     logger.success(f'RUN COMPLETE - {int(t_1 - t_0)}s')
