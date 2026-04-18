@@ -111,19 +111,32 @@
       </section>
     </div>
 
-    <aside class="leader-images-panel">
-      <h2>Leader Card</h2>
-      <div class="leader-flip-wrapper">
-        <img id="leaderCardImage"
-            src="%front_art"
-            data-front="%front_art"
-            data-back="%back_art"
-            alt="Leader card"
-            class="leader-card-img">
+    <aside class="right-header">
+      <div class="leader-images-panel">
+        <h2>Leader Card</h2>
+        <div class="leader-flip-wrapper">
+          <img id="leaderCardImage"
+              src="%front_art"
+              data-front="%front_art"
+              data-back="%back_art"
+              alt="Leader card"
+              class="leader-card-img">
 
-        <button id="flipLeaderBtn" class="flip-btn">Flip Leader</button>
+          <button id="flipLeaderBtn" class="flip-btn">Flip Leader</button>
+        </div>
+      </div>
+      <div class="copy-btns">
+        <p>Use the button below to copy a link to this page that keeps your filters!</p>
+        <!-- <button id="copyBtn" class="copy-btn" data-copy="Your text to copy here">
+          Copy
+        </button> -->
+        <button id="copyShareLinkBtn" class="copy-btn">
+          Copy Share Link
+        </button>
+        <div id="copyToast" class="copy-toast">Copied!</div>
       </div>
     </aside>
+
   </section>
 
   
@@ -149,232 +162,281 @@
 </footer>
 
 <script>
-/* ------------------------------
-    LEADER FLIP BUTTON
------------------------------- */
-const leaderImg = document.getElementById("leaderCardImage");
-const flipBtn = document.getElementById("flipLeaderBtn");
+document.addEventListener("DOMContentLoaded", () => {
 
-let showingFront = true;
+  /* ============================================================
+     FILTER STATE
+     ============================================================ */
+  let activeTypes   = new Set(["all"]);
+  let activeAspects = new Set(["all"]);
+  let activeSet     = "all";
 
-flipBtn.addEventListener("click", () => {
-  leaderImg.style.opacity = 0;
+  /* ============================================================
+     ELEMENTS
+     ============================================================ */
+  const typeButtons   = document.querySelectorAll('.type-btn');
+  const aspectButtons = document.querySelectorAll('.aspect-btn');
+  const setFilter     = document.getElementById('setFilter');
+  const cards         = document.querySelectorAll('.card-tile');
 
-  setTimeout(() => {
-    showingFront = !showingFront;
-    leaderImg.src = showingFront ? leaderImg.dataset.front : leaderImg.dataset.back;
-    leaderImg.style.opacity = 1;
-  }, 200);
-});
+  /* ============================================================
+     USAGE STATS
+     ============================================================ */
+  function renderUsageStats() {
+    cards.forEach(tile => {
+      const usageContainer = tile.querySelector('.usage-stats');
+      const usageData = JSON.parse(tile.dataset.usage || "{}");
+      usageContainer.innerHTML = "";
 
-/* ------------------------------
-   FILTER STATE
------------------------------- */
-let activeTypes = new Set(["all"]);   // unit, event, upgrade, base, all
-let activeAspects = new Set(["all"]); // heroism, villainy, etc.
-let activeSet = "all";                // sor, sog, fotf, etc.
+      const rows = [
+        { copies: 3, label: "3 copies" },
+        { copies: 2, label: "2 copies" },
+        { copies: 1, label: "1 copy" }
+      ];
 
-/* ------------------------------
-   ELEMENTS
------------------------------- */
-const typeButtons = document.querySelectorAll('.type-btn');
-const aspectButtons = document.querySelectorAll('.aspect-btn');
-const setFilter = document.getElementById('setFilter');
-const cards = document.querySelectorAll('.card-tile');
+      rows.forEach(row => {
+        const pct = usageData[row.copies];
+        if (!pct || pct <= 0) return;
+        const div = document.createElement('div');
+        div.className = "usage-row";
+        div.textContent = `${row.label}: ${pct}% of decks`;
+        usageContainer.appendChild(div);
+      });
+    });
+  }
 
-/* ------------------------------
-   USAGE STATS RENDERING
------------------------------- */
-function renderUsageStats() {
-  cards.forEach(tile => {
-    const usageContainer = tile.querySelector('.usage-stats');
-    const usageData = JSON.parse(tile.dataset.usage || "{}");
-    usageContainer.innerHTML = "";
+  /* ============================================================
+     UNIFIED FILTER ENGINE
+     ============================================================ */
+  function applyFilters() {
+    cards.forEach(card => {
+      const cardTypes   = (card.dataset.type   || "").split(" ");
+      const cardAspects = (card.dataset.aspect || "").split(" ");
+      const cardSet     = card.dataset.set || "all";
 
-    const rows = [
-      { copies: 3, label: "3 copies" },
-      { copies: 2, label: "2 copies" },
-      { copies: 1, label: "1 copy" }
-    ];
+      let visible = true;
 
-    rows.forEach(row => {
-      const pct = usageData[row.copies];
-      if (!pct || pct <= 0) return;
+      // TYPE FILTER
+      if (!activeTypes.has("all")) {
+        const matchesType = cardTypes.some(t => activeTypes.has(t));
+        if (!matchesType) visible = false;
+      }
 
-      const div = document.createElement('div');
-      div.className = "usage-row";
-      div.textContent = `${row.label}: ${pct}%`;
-      usageContainer.appendChild(div);
+      // ASPECT FILTER
+      if (!activeAspects.has("all")) {
+        const matchesAspect = cardAspects.some(a => activeAspects.has(a));
+        if (!matchesAspect) visible = false;
+      }
+
+      // SET FILTER
+      if (activeSet !== "all" && cardSet !== activeSet) {
+        visible = false;
+      }
+
+      card.style.display = visible ? "" : "none";
+    });
+  }
+
+  /* ============================================================
+     APPLY FILTERS FROM URL (NEW)
+     ============================================================ */
+  function applyFiltersFromURL() {
+    const params = new URLSearchParams(window.location.search);
+
+    /* SET */
+    const setParam = params.get("set");
+    if (setParam) {
+      activeSet = setParam;
+      if (setFilter) setFilter.value = setParam;
+    }
+
+    /* TYPES */
+    const typesParam = params.get("types");
+    if (typesParam) {
+      activeTypes = new Set(typesParam.split(","));
+      activeTypes.delete("all");
+
+      typeButtons.forEach(btn => {
+        const t = btn.dataset.type;
+        btn.classList.toggle("active", activeTypes.has(t));
+      });
+    }
+
+    /* ASPECTS */
+    const aspectsParam = params.get("aspects");
+    if (aspectsParam) {
+      activeAspects = new Set(aspectsParam.split(","));
+      activeAspects.delete("all");
+
+      aspectButtons.forEach(btn => {
+        const a = btn.dataset.aspect;
+        btn.classList.toggle("active", activeAspects.has(a));
+      });
+    }
+  }
+
+  /* ============================================================
+     TYPE FILTER BUTTONS
+     ============================================================ */
+  typeButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const type = btn.dataset.type;
+
+      if (type === "all") {
+        activeTypes = new Set(["all"]);
+        typeButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        applyFilters();
+        return;
+      }
+
+      activeTypes.delete("all");
+      document.querySelector('.type-btn[data-type="all"]')?.classList.remove('active');
+
+      if (activeTypes.has(type)) {
+        activeTypes.delete(type);
+        btn.classList.remove('active');
+      } else {
+        activeTypes.add(type);
+        btn.classList.add('active');
+      }
+
+      if (activeTypes.size === 0) {
+        activeTypes.add("all");
+        document.querySelector('.type-btn[data-type="all"]')?.classList.add('active');
+      }
+
+      applyFilters();
     });
   });
-}
 
-/* ------------------------------
-   UNIFIED FILTER ENGINE
------------------------------- */
-function applyFilters() {
-  cards.forEach(card => {
-    const cardTypes = card.dataset.type.split(" ");
-    const cardAspects = card.dataset.aspect.split(" ");
-    const cardSet = card.dataset.set;
+  /* ============================================================
+     ASPECT FILTER BUTTONS
+     ============================================================ */
+  aspectButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const aspect = btn.dataset.aspect;
 
-    let visible = true;
+      if (aspect === "all") {
+        activeAspects = new Set(["all"]);
+        aspectButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        applyFilters();
+        return;
+      }
 
-    // TYPE FILTER
-    if (!activeTypes.has("all")) {
-      const matchesType = cardTypes.some(t => activeTypes.has(t));
-      if (!matchesType) visible = false;
-    }
+      activeAspects.delete("all");
+      document.querySelector('.aspect-btn[data-aspect="all"]')?.classList.remove('active');
 
-    // ASPECT FILTER (multi-select, multi-aspect cards)
-    if (!activeAspects.has("all")) {
-      const matchesAspect = cardAspects.some(a => activeAspects.has(a));
-      if (!matchesAspect) visible = false;
-    }
+      if (activeAspects.has(aspect)) {
+        activeAspects.delete(aspect);
+        btn.classList.remove('active');
+      } else {
+        activeAspects.add(aspect);
+        btn.classList.add('active');
+      }
 
+      if (activeAspects.size === 0) {
+        activeAspects.add("all");
+        document.querySelector('.aspect-btn[data-aspect="all"]')?.classList.add('active');
+      }
 
-
-    // SET FILTER
-    if (activeSet !== "all" && cardSet !== activeSet) {
-      visible = false;
-    }
-
-    card.style.display = visible ? "" : "none";
-  });
-}
-
-/* ------------------------------
-   TYPE FILTER HANDLING
------------------------------- */
-typeButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const type = btn.dataset.type;
-
-    // Reset if "all" is chosen
-    if (type === "all") {
-      activeTypes = new Set(["all"]);
-      typeButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
       applyFilters();
-      return;
-    }
-
-    // Remove "all" if selecting specific types
-    activeTypes.delete("all");
-
-    // Toggle type
-    if (activeTypes.has(type)) {
-      activeTypes.delete(type);
-      btn.classList.remove('active');
-    } else {
-      activeTypes.add(type);
-      btn.classList.add('active');
-    }
-
-    // If no types selected, revert to "all"
-    if (activeTypes.size === 0) {
-      activeTypes.add("all");
-      typeButtons.forEach(b => b.classList.remove('active'));
-      document.querySelector('.type-btn[data-type="all"]').classList.add('active');
-    }
-
-    applyFilters();
+    });
   });
-});
 
-/* ------------------------------
-   ASPECT FILTER HANDLING
------------------------------- */
-aspectButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const aspect = btn.dataset.aspect;
-
-    // Reset to ALL
-    if (aspect === "all") {
-      activeAspects = new Set(["all"]);
-      aspectButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+  /* ============================================================
+     SET FILTER
+     ============================================================ */
+  if (setFilter) {
+    setFilter.addEventListener('change', () => {
+      activeSet = setFilter.value;
       applyFilters();
-      return;
-    }
+    });
+  }
 
-    // Remove ALL if selecting specific aspects
-    activeAspects.delete("all");
-    document.querySelector('.aspect-btn[data-aspect="all"]').classList.remove('active');
+  /* ============================================================
+     LEADER CARD FLIP
+     ============================================================ */
+  const leaderImg = document.getElementById("leaderCardImage");
+  const flipBtn   = document.getElementById("flipLeaderBtn");
 
-    // Toggle aspect
-    if (activeAspects.has(aspect)) {
-      activeAspects.delete(aspect);
-      btn.classList.remove('active');
-    } else {
-      activeAspects.add(aspect);
-      btn.classList.add('active');
-    }
+  if (leaderImg && flipBtn) {
+    let showingFront = true;
 
-    // If none selected, revert to ALL
-    if (activeAspects.size === 0) {
-      activeAspects.add("all");
-      document.querySelector('.aspect-btn[data-aspect="all"]').classList.add('active');
-    }
+    flipBtn.addEventListener("click", () => {
+      leaderImg.style.opacity = 0;
 
-    applyFilters();
-  });
-});
+      setTimeout(() => {
+        showingFront = !showingFront;
+        leaderImg.src = showingFront ? leaderImg.dataset.front : leaderImg.dataset.back;
+        leaderImg.style.opacity = 1;
+      }, 200);
+    });
+  }
 
-// aspectButtons.forEach(btn => {
-//   btn.addEventListener('click', () => {
-//     activeAspect = btn.dataset.aspect;
+  /* ============================================================
+     HOVER ZOOM POPUP
+     ============================================================ */
+  const zoomPopup = document.getElementById("cardZoomPopup");
 
-//     aspectButtons.forEach(b => b.classList.remove('active'));
-//     btn.classList.add('active');
+  if (zoomPopup) {
+    document.querySelectorAll(".card-image-wrapper img").forEach(img => {
+      img.addEventListener("mouseenter", () => {
+        const zoomImg = document.createElement("img");
+        zoomImg.src = img.src;
+        zoomPopup.innerHTML = "";
+        zoomPopup.appendChild(zoomImg);
 
-//     applyFilters();
-//   });
-// });
+        zoomPopup.style.width = img.clientWidth * 2.5 + "px";
+        zoomPopup.style.display = "block";
+      });
 
-/* ------------------------------
-   SET FILTER HANDLING
------------------------------- */
-setFilter.addEventListener('change', () => {
-  activeSet = setFilter.value;
+      img.addEventListener("mousemove", (e) => {
+        const offset = 20;
+        zoomPopup.style.left = e.clientX + offset + "px";
+        zoomPopup.style.top  = e.clientY + offset - 2.5 * img.clientHeight / 2 + "px";
+      });
+
+      img.addEventListener("mouseleave", () => {
+        zoomPopup.style.display = "none";
+      });
+    });
+  }
+
+  /* ============================================================
+     SHARE LINK BUTTON (GUARDED)
+     ============================================================ */
+  const copyShareLinkBtn = document.getElementById("copyShareLinkBtn");
+  const copyToast        = document.getElementById("copyToast");
+
+  if (copyShareLinkBtn && copyToast) {
+    copyShareLinkBtn.addEventListener("click", () => {
+      const params = new URLSearchParams();
+
+      if (activeSet !== "all") params.set("set", activeSet);
+      if (!activeTypes.has("all"))   params.set("types",   [...activeTypes].join(","));
+      if (!activeAspects.has("all")) params.set("aspects", [...activeAspects].join(","));
+
+      const baseUrl  = window.location.origin + "/%set_code/%card_id.html";
+      const shareUrl = params.toString()
+        ? `${baseUrl}?${params.toString()}`
+        : baseUrl;
+
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        copyToast.classList.add("show");
+        setTimeout(() => copyToast.classList.remove("show"), 1500);
+      });
+    });
+  }
+
+  /* ============================================================
+     INITIALIZE (URL → STATE → FILTERS)
+     ============================================================ */
+  applyFiltersFromURL();  // NEW
+  renderUsageStats();
   applyFilters();
 });
-
-/* ------------------------------
-   INITIALIZE
------------------------------- */
-renderUsageStats();
-applyFilters();
-
-/* ------------------------------
-   HOVER ZOOM POP-UP
------------------------------- */
-const zoomPopup = document.getElementById("cardZoomPopup");
-
-document.querySelectorAll(".card-image-wrapper img").forEach(img => {
-  const zoom = 2.5
-  img.addEventListener("mouseenter", () => {
-    const zoomImg = document.createElement("img");
-    zoomImg.src = img.src;
-    zoomPopup.innerHTML = "";
-    zoomPopup.appendChild(zoomImg);
-
-    zoomPopup.style.width = img.clientWidth * zoom + "px";
-    zoomPopup.style.display = "block";
-  });
-
-  img.addEventListener("mousemove", (e) => {
-    const offset = 20; // distance from cursor
-    zoomPopup.style.left = e.clientX + offset + "px";
-    zoomPopup.style.top = e.clientY - ((zoom / 2) * img.clientHeight) + "px";
-  });
-
-  img.addEventListener("mouseleave", () => {
-    zoomPopup.style.display = "none";
-  });
-});
-
-
 </script>
 </body>
 </html>

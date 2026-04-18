@@ -119,7 +119,8 @@ def write_set_leader_pages(sets, cards, set_code, refresh_time=None):
             '%set_filters': '\n'.join([f'<option value=\"{set.set_code}\">{set.title}</option>' for set in sets.itertuples() if set.set_code in card_grid['set_code'].drop_duplicates().values]),
             '%card_grid': get_leader_articles(card_grid=card_grid),
             '%decks': str(db_conn.query(f'SELECT COUNT(*) FROM deck_leaders WHERE card_id = \'{leader.card_id}\'').values[0][0]),
-            '%time': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(refresh_time))
+            '%time': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(refresh_time)),
+            '%card_id': leader.card_id
         }
         write_file(Path(f'html/{leader.set_code}/{leader.card_id}.html'), replace_text(sub_map, leader_html[:]))
   
