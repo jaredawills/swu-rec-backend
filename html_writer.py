@@ -150,6 +150,6 @@ if __name__ == '__main__':
     write_index(t_0)
     write_about(t_0)
     # write_set_leader_pages(db_conn.read('sets'), db_conn.read('cards'), 'LAW')
-    # write_leader_pages()
+    # write_leader_pages(t_0)
     t_1 = time.time()
     logger.success(f'RUN COMPLETE - {int(t_1 - t_0)}s')
