@@ -116,13 +116,14 @@ def download_set_list():
     logger.debug(f'Connecting to: {url}')
     driver.get(url)
     timeout = 0
-    pattern = r'<a href="\/sets\/([^\"]*)" class="swudb-hover-link">([^<]*)<\/a>'
-    sets = []
+    set_pattern = r'<a href="\/sets\/([^\"]*)" class="swudb-hover-link">([^<]*)<\/a>'
+    # date_pattern = r'Release Date:<>'
+    sets = [] 
     while timeout < 5 and len(sets) < 1:
         time.sleep(2)
         timeout += 1
         html = driver.page_source
-        sets = re.findall(pattern, html)
+        sets = re.findall(set_pattern, html)
     logger.debug(f'Found {len(sets)} sets')
     sets = pd.DataFrame(sets, columns=['set_code', 'title'])
     db_conn.write(sets, 'sets')
