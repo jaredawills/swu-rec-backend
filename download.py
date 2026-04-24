@@ -11,6 +11,7 @@ import pandas as pd
 import json
 from loguru import logger
 import regex as re
+from pathlib import Path
 
 import time
 from selenium import webdriver
@@ -134,7 +135,6 @@ def generic_bases():
         conn.commit()
 
 
-
 def overhaul_sets():
     db_conn.clear_table('sets')
     download_set_list()
@@ -164,6 +164,7 @@ def scrape_swudb(decks, sortby='top', overlap_threshold=100):
     height = -1
     overlap = 0
     last_height = driver.execute_script('return document.body.scrollHeight')
+    today = time.strftime("%Y-%m-%d", time.localtime(time.time()))
     try:
         while (height != last_height or timeout < 40) and overlap < overlap_threshold:
             overlap = 0
@@ -179,7 +180,7 @@ def scrape_swudb(decks, sortby='top', overlap_threshold=100):
                 if deck_id in decks[decks['source']==source]['deck_id'].values:
                     overlap += 1
                 else:
-                    new_decks = pd.concat([new_decks, pd.DataFrame([[deck_id, source]], columns=['deck_id', 'source'])]).drop_duplicates()
+                    new_decks = pd.concat([new_decks, pd.DataFrame([[deck_id, source, today]], columns=['deck_id', 'source', 'date_inserted'])]).drop_duplicates()
             logger.debug(f'd:{decks.shape[0] + new_decks.shape[0]} | o:{overlap} | h:{height}px | t:{timeout}s')
         logger.debug('End of page reached')
         decks = pd.concat([decks, new_decks]).drop_duplicates()
@@ -197,12 +198,13 @@ def scrape_sw_unlimited_db(decks, timeout_threshold=200, new_limit=500):
         deck_id = decks[decks['source']==source]['deck_id'].astype(int).max()
     timeout = 0
     count = 0
+    today = time.strftime("%Y-%m-%d", time.localtime(time.time()))
     try:
         while timeout < timeout_threshold and (count < new_limit or new_limit < 0):
             deck_id += 1
             response = requests.get(url + str(deck_id))
             if response.status_code == 200:
-                decks = pd.concat([decks, pd.DataFrame([[deck_id, source]], columns=['deck_id', 'source'])])
+                decks = pd.concat([decks, pd.DataFrame([[deck_id, source, today]], columns=['deck_id', 'source', 'date_inserted'])])
                 count += 1
                 timeout = 0
             else:
@@ -220,7 +222,7 @@ def update_cards_db():
 
 
 def overhaul_deck_ids():
-    decks = pd.DataFrame([], columns=['deck_id', 'source'])
+    decks = pd.DataFrame([], columns=['deck_id', 'source', 'date_inserted'])
     for sortby in ['top', 'discussed', 'new', 'hot']:
         decks = scrape_swudb(decks, sortby, overlap_threshold=1000)
     decks = scrape_sw_unlimited_db(decks, timeout_threshold=1100, new_limit=-1)
@@ -243,16 +245,17 @@ def get_new_deck_ids():
 
 def download_decks():
     conn = db_conn.get_conn()
-    decks = pd.read_sql('SELECT * FROM decks', conn)
+    today = time.strftime("%Y-%m-%d", time.localtime(time.time()))
+    decks = pd.read_sql(f'SELECT * FROM decks WHERE DATE(date_inserted) = DATE(\'{today}\')', conn)
     deck_leaders = pd.read_sql('SELECT * FROM deck_leaders', conn)
     deck_cards = pd.read_sql('SELECT * FROM deck_cards', conn)
     success_count = 0
     dropped_count = 0
-    for i, (deck_id, source) in enumerate(decks.values):
+    for i, decks_row in enumerate(decks.itertuples()):
         try:
-            if deck_id not in deck_leaders['deck_id'].values:
-                if source == 'swudb':
-                    url = f'https://swudb.com/api/deck/{deck_id}'
+            if decks_row.deck_id not in deck_leaders['deck_id'].values:
+                if decks_row.source == 'swudb':
+                    url = f'https://swudb.com/api/deck/{decks_row.deck_id}'
                     response = requests.get(url)
                     if response.status_code == 200:
                         deck = response.json()
@@ -260,61 +263,61 @@ def download_decks():
                             deck_leaders = pd.concat([
                                 deck_leaders,
                                 pd.DataFrame(
-                                    [[deck_id, deck['leader']['defaultExpansionAbbreviation'] + '_' + deck['leader']['defaultCardNumber']]],
+                                    [[decks_row.deck_id, deck['leader']['defaultExpansionAbbreviation'] + '_' + deck['leader']['defaultCardNumber']]],
                                     columns=['deck_id', 'card_id']
                                 )
                             ])
                             deck_bases = pd.DataFrame(
-                                [[deck_id, deck['base']['defaultExpansionAbbreviation'] + '_' + deck['base']['defaultCardNumber'], 1]],
+                                [[decks_row.deck_id, deck['base']['defaultExpansionAbbreviation'] + '_' + deck['base']['defaultCardNumber'], 1]],
                                 columns=['deck_id', 'card_id', 'num']
                             )
                             deck_cards = pd.concat([
                                 deck_cards,
                                 deck_bases,
                                 pd.DataFrame(
-                                    [[deck_id, card['card']['defaultExpansionAbbreviation'] + '_' + card['card']['defaultCardNumber'], card['count']] for card in deck['shuffledDeck']],
+                                    [[decks_row.deck_id, card['card']['defaultExpansionAbbreviation'] + '_' + card['card']['defaultCardNumber'], card['count']] for card in deck['shuffledDeck']],
                                     columns=['deck_id', 'card_id', 'num']
                                 )
                             ])
-                            logger.debug(f'{i+1}/{decks.shape[0]} | {source} | {deck_id}')
+                            logger.debug(f'{i+1}/{decks.shape[0]} | {decks_row.source} | {decks_row.deck_id}')
                             success_count += 1
                         else:
-                            logger.debug(f'{i+1}/{decks.shape[0]} | {source} | {deck_id} SKIPPED (TS)')
-                            decks = decks.drop(decks[decks['deck_id']==deck_id].index)
+                            logger.debug(f'{i+1}/{decks.shape[0]} | {decks_row.source} | {decks_row.deck_id} SKIPPED (TS)')
+                            decks = decks.drop(decks[decks['deck_id']==decks_row.deck_id].index)
                             dropped_count += 1
                     else:
-                        logger.debug(f'{i+1}/{decks.shape[0]} | {source} | {deck_id} SKIPPED (404)')
-                        decks = decks.drop(decks[decks['deck_id']==deck_id].index)
+                        logger.debug(f'{i+1}/{decks.shape[0]} | {decks_row.source} | {decks_row.deck_id} SKIPPED (404)')
+                        decks = decks.drop(decks[decks['deck_id']==decks_row.deck_id].index)
                         dropped_count += 1
-                elif source == 'sw-unlimited-db':
-                    url = f'https://sw-unlimited-db.com/umbraco/api/export/export?deckId={deck_id}&exportId=da7e2602-c2d7-4773-9ce1-9f1eb2b2ae8a'
+                elif decks_row.source == 'sw-unlimited-db':
+                    url = f'https://sw-unlimited-db.com/umbraco/api/export/export?deckId={decks_row.deck_id}&exportId=da7e2602-c2d7-4773-9ce1-9f1eb2b2ae8a'
                     response = requests.get(url)
                     if response.status_code == 200:
                         deck = response.json()
                         deck_leaders = pd.concat([
                             deck_leaders,
                             pd.DataFrame(
-                                [[deck_id, deck['leader']['id']]],
+                                [[decks_row.deck_id, deck['leader']['id']]],
                                 columns=['deck_id', 'card_id']
                             )
                         ])
                         deck_bases = pd.DataFrame(
-                            [[deck_id, deck['base']['id'], 1]],
+                            [[decks_row.deck_id, deck['base']['id'], 1]],
                             columns=['deck_id', 'card_id', 'num']
                         )
                         deck_cards = pd.concat([
                             deck_cards,
                             deck_bases,
                             pd.DataFrame(
-                                [[deck_id, card['id'], card['count']] for card in deck['deck']],
+                                [[decks_row.deck_id, card['id'], card['count']] for card in deck['deck']],
                                 columns=['deck_id', 'card_id', 'num']
                             )
                         ])
-                        logger.debug(f'{i+1}/{decks.shape[0]} | {source} | {deck_id}')
+                        logger.debug(f'{i+1}/{decks.shape[0]} | {decks_row.source} | {decks_row.deck_id}')
                         success_count += 1
                     else:
-                        logger.debug(f'{i+1}/{decks.shape[0]} | {source} | {deck_id} SKIPPED (404)')
-                        decks = decks.drop(decks[decks['deck_id']==deck_id].index)
+                        logger.debug(f'{i+1}/{decks.shape[0]} | {decks_row.source} | {decks_row.deck_id} SKIPPED (404)')
+                        decks = decks.drop(decks[decks['deck_id']==decks_row.deck_id].index)
                         dropped_count += 1
         except Exception as e:
             logger.error(f'An Exception has occured {e}')
@@ -332,8 +335,9 @@ def download_decks():
 
 if __name__ == '__main__':
     t_0 = time.time()
-    overhaul_sets()
-    overhaul_cards()
+    # overhaul_sets()
+    # overhaul_cards()
+    get_new_deck_ids()
     t_1 = time.time()
     logger.success(f'RUN COMPLETE - {int(t_1 - t_0)}s')
 
