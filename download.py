@@ -184,7 +184,7 @@ def scrape_swudb(decks, sortby='top', overlap_threshold=100):
                     overlap += 1
                 else:
                     new_decks = pd.concat([new_decks, pd.DataFrame([[deck_id, source, today]], columns=['deck_id', 'source', 'date_inserted'])]).drop_duplicates()
-            logger.debug(f'd:{decks.shape[0] + new_decks.shape[0]} | o:{overlap} | h:{height}px | t:{timeout}s')
+            logger.debug(f'd:{decks.shape[0] + new_decks.shape[0]} | n:{new_decks.shape[0]} | o:{overlap} | h:{height}px | t:{timeout}s')
         logger.debug('End of page reached')
         decks = pd.concat([decks, new_decks]).drop_duplicates()
     except Exception as e:
@@ -194,7 +194,11 @@ def scrape_swudb(decks, sortby='top', overlap_threshold=100):
 
 def scrape_sw_unlimited_db(decks, timeout_threshold=200, new_limit=500):
     source = 'sw-unlimited-db'
-    url = 'https://sw-unlimited-db.com/decks/'
+    url = 'https://sw-unlimited-db.com/'
+    sw_unlimited_db_html = requests.get(url).text
+    max_pattern = r'<a href="\/decks\/(\d+)"'
+    max_id = int(re.search(max_pattern, sw_unlimited_db_html).group(1))
+    url += '/decks/'
     if str(decks[decks['source']==source]['deck_id'].max()) == 'nan':
         deck_id = 1500
     else:
@@ -203,16 +207,17 @@ def scrape_sw_unlimited_db(decks, timeout_threshold=200, new_limit=500):
     count = 0
     today = time.strftime("%Y-%m-%d", time.localtime(time.time()))
     try:
-        while timeout < timeout_threshold and (count < new_limit or new_limit < 0):
-            deck_id += 1
-            response = requests.get(url + str(deck_id))
+        for new_id in range(deck_id + 1, max_id + 1):
+        # while timeout < timeout_threshold and (count < new_limit or new_limit < 0):
+            # deck_id += 1 
+            response = requests.get(url + str(new_id))
             if response.status_code == 200:
-                decks = pd.concat([decks, pd.DataFrame([[deck_id, source, today]], columns=['deck_id', 'source', 'date_inserted'])])
+                decks = pd.concat([decks, pd.DataFrame([[new_id, source, today]], columns=['deck_id', 'source', 'date_inserted'])])
                 count += 1
                 timeout = 0
             else:
                 timeout += 1
-            logger.debug(f'd:{decks.shape[0]} | n:{count} | id:{deck_id} | t:{timeout}')
+            logger.debug(f'd:{decks.shape[0]} | n:{count} | id:{new_id} | t:{timeout}')
     except Exception as e:
         logger.error(f'An Exception has occured: {e}')
     return decks
@@ -222,7 +227,7 @@ def update_cards():
     conn = db_conn.get_conn()
     sets = pd.read_sql('SELECT * FROM sets WHERE DATE(release_date) >= DATE(\'NOW\', \'-6 months\')', conn)
     conn.close()
-    # sets = db_conn.read('sets')
+    logger.debug(f'Updating {sets.shape[0]} sets')
     for code in sets['set_code']:
         download_set(code)
 
