@@ -117,15 +117,18 @@ def download_set_list():
     driver.get(url)
     timeout = 0
     set_pattern = r'<a href="\/sets\/([^\"]*)" class="swudb-hover-link">([^<]*)<\/a>'
-    # date_pattern = r'Release Date:<>'
+    date_pattern = r'Release Date:<\/span> ([^<]*)<\/p>'
     sets = [] 
     while timeout < 5 and len(sets) < 1:
         time.sleep(2)
         timeout += 1
         html = driver.page_source
         sets = re.findall(set_pattern, html)
+        dates = re.findall(date_pattern, html)
+        sets = [(s[0], s[1], d) for s, d in zip(sets, dates)]
     logger.debug(f'Found {len(sets)} sets')
-    sets = pd.DataFrame(sets, columns=['set_code', 'title'])
+    sets = pd.DataFrame(sets, columns=['set_code', 'title', 'release_date'])
+    sets['release_date'] = pd.to_datetime(sets['release_date']).dt.strftime('%Y-%m-%d')
     db_conn.write(sets, 'sets')
 
 
@@ -142,7 +145,6 @@ def overhaul_sets():
 
 
 def overhaul_cards():
-    db_conn.clear_table('cards')
     sets = db_conn.read('sets')
     for code in sets['set_code']:
         download_set(code)
@@ -216,10 +218,13 @@ def scrape_sw_unlimited_db(decks, timeout_threshold=200, new_limit=500):
     return decks
 
 
-def update_cards_db():
-    sets = db_conn.read('sets')
-    for set in sets['set_code']:
-        download_set(set)
+def update_cards():
+    conn = db_conn.get_conn()
+    sets = pd.read_sql('SELECT * FROM sets WHERE DATE(release_date) >= DATE(\'NOW\', \'-6 months\')', conn)
+    conn.close()
+    # sets = db_conn.read('sets')
+    for code in sets['set_code']:
+        download_set(code)
 
 
 def overhaul_deck_ids():
@@ -336,9 +341,9 @@ def download_decks():
 
 if __name__ == '__main__':
     t_0 = time.time()
-    # overhaul_sets()
-    # overhaul_cards()
-    get_new_deck_ids()
+    overhaul_sets()
+    update_cards()
+    # get_new_deck_ids()
     t_1 = time.time()
     logger.success(f'RUN COMPLETE - {int(t_1 - t_0)}s')
 

@@ -13,6 +13,7 @@ from pathlib import Path
 
 from loguru import logger
 
+HTML_ROOT = 'html'
 
 def read_file(in_file):
     in_file = Path(in_file) if type(in_file) == str else in_file
@@ -70,7 +71,7 @@ def write_index(refresh_time=None):
         '%set_sections': '\n'.join(set_sections),
         '%time': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(refresh_time))
     }
-    write_file(Path('html/index.html'), replace_text(sub_map, index_html[:]))
+    write_file(Path(HTML_ROOT, 'index.html'), replace_text(sub_map, index_html[:]))
             
 
 def get_leader_articles(card_grid=[], card_id=None):
@@ -122,7 +123,7 @@ def write_set_leader_pages(sets, cards, set_code, refresh_time=None):
             '%time': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(refresh_time)),
             '%card_id': leader.card_id
         }
-        write_file(Path(f'html/{leader.set_code}/{leader.card_id}.html'), replace_text(sub_map, leader_html[:]))
+        write_file(Path(HTML_ROOT, f'{leader.set_code}/{leader.card_id}.html'), replace_text(sub_map, leader_html[:]))
   
     
 def write_leader_pages(refresh_time=None):
@@ -143,7 +144,7 @@ def write_about(refresh_time=None):
     sub = {
         '%time': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(refresh_time))
     }
-    write_file('html/about.html', replace_text(sub, about_html[:]))
+    write_file(HTML_ROOT, 'about.html', replace_text(sub, about_html[:]))
 
 if __name__ == '__main__':
     t_0 = time.time()
