@@ -36,7 +36,6 @@ def write_file(out_file, text):
         file.write(text)
 
 
-
 def download_set(set_code):
     logger.debug(f'Downloading Set {set_code} to database')
     api_url = f'https://api.swu-db.com/cards/{set_code}'
