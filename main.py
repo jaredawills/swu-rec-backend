@@ -14,8 +14,8 @@ import html_writer
 def main():
     logger.info('OVERHAUL SETS')
     download.overhaul_sets()
-    logger.info('OVERHAUL CARDS')
-    download.overhaul_cards()
+    logger.info('UPDATE CARDS')
+    download.update_cards()
     logger.info('GET NEW DECK IDS')
     download.get_new_deck_ids()
     logger.info('DOWNLOAD DECKS')

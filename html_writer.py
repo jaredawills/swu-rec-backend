@@ -144,7 +144,7 @@ def write_about(refresh_time=None):
     sub = {
         '%time': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(refresh_time))
     }
-    write_file(HTML_ROOT, 'about.html', replace_text(sub, about_html[:]))
+    write_file(Path(HTML_ROOT, 'about.html'), replace_text(sub, about_html[:]))
 
 if __name__ == '__main__':
     t_0 = time.time()

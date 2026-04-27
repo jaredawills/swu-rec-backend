@@ -177,14 +177,14 @@ def scrape_swudb(decks, sortby='top', overlap_threshold=100):
             height = driver.execute_script('return document.body.scrollHeight')
             timeout = timeout + 5 if height == last_height else 0
             html = driver.page_source
-            deck_href = re.findall(pattern, html)
+            deck_href = pd.Series(re.findall(pattern, html)).drop_duplicates()
             for deck_id in deck_href:
                 deck_id = deck_id.split('/')[-1][:-1]
                 if deck_id in decks[decks['source']==source]['deck_id'].values:
                     overlap += 1
                 else:
                     new_decks = pd.concat([new_decks, pd.DataFrame([[deck_id, source, today]], columns=['deck_id', 'source', 'date_inserted'])]).drop_duplicates()
-            logger.debug(f'd:{decks.shape[0] + new_decks.shape[0]} | o:{overlap} | h:{height}px | t:{timeout}s')
+            logger.debug(f'd:{decks.shape[0] + new_decks.shape[0]} | n:{new_decks.shape[0]} | o:{overlap} | h:{height}px | t:{timeout}s')
         logger.debug('End of page reached')
         decks = pd.concat([decks, new_decks]).drop_duplicates()
     except Exception as e:
@@ -194,7 +194,12 @@ def scrape_swudb(decks, sortby='top', overlap_threshold=100):
 
 def scrape_sw_unlimited_db(decks, timeout_threshold=200, new_limit=500):
     source = 'sw-unlimited-db'
-    url = 'https://sw-unlimited-db.com/decks/'
+    url = 'https://sw-unlimited-db.com/'
+    logger.debug(f'Connecting to {url}')
+    sw_unlimited_db_html = requests.get(url).text
+    max_pattern = r'<a href="\/decks\/(\d+)"'
+    max_id = int(re.search(max_pattern, sw_unlimited_db_html).group(1))
+    url += '/decks/'
     if str(decks[decks['source']==source]['deck_id'].max()) == 'nan':
         deck_id = 1500
     else:
@@ -202,17 +207,19 @@ def scrape_sw_unlimited_db(decks, timeout_threshold=200, new_limit=500):
     timeout = 0
     count = 0
     today = time.strftime("%Y-%m-%d", time.localtime(time.time()))
+    logger.debug(f'Searching id=({deck_id}, {max_id}]')
     try:
-        while timeout < timeout_threshold and (count < new_limit or new_limit < 0):
-            deck_id += 1
-            response = requests.get(url + str(deck_id))
+        for new_id in range(deck_id + 1, max_id + 1):
+        # while timeout < timeout_threshold and (count < new_limit or new_limit < 0):
+            # deck_id += 1 
+            response = requests.get(url + str(new_id))
             if response.status_code == 200:
-                decks = pd.concat([decks, pd.DataFrame([[deck_id, source, today]], columns=['deck_id', 'source', 'date_inserted'])])
+                decks = pd.concat([decks, pd.DataFrame([[new_id, source, today]], columns=['deck_id', 'source', 'date_inserted'])])
                 count += 1
                 timeout = 0
             else:
                 timeout += 1
-            logger.debug(f'd:{decks.shape[0]} | n:{count} | id:{deck_id} | t:{timeout}')
+            logger.debug(f'd:{decks.shape[0]} | n:{count} | id:{new_id} | t:{timeout}')
     except Exception as e:
         logger.error(f'An Exception has occured: {e}')
     return decks
@@ -222,7 +229,7 @@ def update_cards():
     conn = db_conn.get_conn()
     sets = pd.read_sql('SELECT * FROM sets WHERE DATE(release_date) >= DATE(\'NOW\', \'-6 months\')', conn)
     conn.close()
-    # sets = db_conn.read('sets')
+    logger.debug(f'Updating {sets.shape[0]} sets')
     for code in sets['set_code']:
         download_set(code)
 
@@ -230,8 +237,8 @@ def update_cards():
 def overhaul_deck_ids():
     decks = pd.DataFrame([], columns=['deck_id', 'source', 'date_inserted'])
     for sortby in ['top', 'discussed', 'new', 'hot']:
-        decks = scrape_swudb(decks, sortby, overlap_threshold=1000)
-    decks = scrape_sw_unlimited_db(decks, timeout_threshold=1100, new_limit=-1)
+        decks = scrape_swudb(decks, sortby, overlap_threshold=500)
+    decks = scrape_sw_unlimited_db(decks)
     decks = decks.drop_duplicates()
     logger.info(f'{decks.shape[0]} total deck_ids')
     if decks.shape[0] > 0:
@@ -240,13 +247,66 @@ def overhaul_deck_ids():
 
 def get_new_deck_ids():
     decks = db_conn.read('decks')
-    decks = scrape_swudb(decks, sortby='new', overlap_threshold=100) # sortby = 'new' / 'hot' / 'top' / 'discussed'
+    decks = scrape_swudb(decks, sortby='new', overlap_threshold=30) # sortby = 'new' / 'hot' / 'top' / 'discussed'
     # decks = scrape_swudb(decks, sortby='top', overlap_threshold=10000)
-    decks = scrape_sw_unlimited_db(decks, timeout_threshold=100, new_limit=-1)
+    decks = scrape_sw_unlimited_db(decks)
     decks = decks.drop_duplicates()
     logger.info(f'{decks.shape[0]} total deck_ids')
     if decks.shape[0] > 0:
         db_conn.write(decks, 'decks')
+
+
+def download_swudb(deck_id):
+    url = f'https://swudb.com/api/deck/{deck_id}'
+    response = requests.get(url)
+    if response.status_code == 200:
+        deck = response.json()
+        if deck['secondLeader'] == None:
+            deck_leaders = pd.DataFrame(
+                [[deck_id, deck['leader']['defaultExpansionAbbreviation'] + '_' + deck['leader']['defaultCardNumber']]],
+                columns=['deck_id', 'card_id']
+            )
+            deck_bases = pd.DataFrame(
+                [[deck_id, deck['base']['defaultExpansionAbbreviation'] + '_' + deck['base']['defaultCardNumber'], 1]],
+                columns=['deck_id', 'card_id', 'num']
+            )
+            deck_cards = pd.concat([
+                deck_bases,
+                pd.DataFrame(
+                    [[deck_id, card['card']['defaultExpansionAbbreviation'] + '_' + card['card']['defaultCardNumber'], card['count']] for card in deck['shuffledDeck']],
+                    columns=['deck_id', 'card_id', 'num']
+                )
+            ])
+            return deck_leaders, deck_cards
+        else:
+            raise Exception('TS')
+    else:
+        raise Exception(response.status_code)
+    
+
+def download_sw_unlimited_db(deck_id):
+    url = f'https://api.sw-unlimited-db.com/umbraco/api/export/export?deckId={deck_id}&exportId=da7e2602-c2d7-4773-9ce1-9f1eb2b2ae8a'
+    response = requests.get(url)
+    if response.status_code == 200:
+        deck = response.json()
+        deck_leaders = pd.DataFrame(
+            [[deck_id, deck['leader']['id']]],
+            columns=['deck_id', 'card_id']
+        )
+        deck_bases = pd.DataFrame(
+            [[deck_id, deck['base']['id'], 1]],
+            columns=['deck_id', 'card_id', 'num']
+        )
+        deck_cards = pd.concat([
+            deck_bases,
+            pd.DataFrame(
+                [[deck_id, card['id'], card['count']] for card in deck['deck']],
+                columns=['deck_id', 'card_id', 'num']
+            )
+        ])
+        return deck_leaders, deck_cards
+    else:
+        raise Exception(response.status_code)
 
 
 def download_decks():
@@ -256,94 +316,44 @@ def download_decks():
     deck_leaders = pd.read_sql('SELECT * FROM deck_leaders', conn)
     deck_cards = pd.read_sql('SELECT * FROM deck_cards', conn)
     success_count = 0
-    dropped_count = 0
+    skipped_count = 0
     for i, decks_row in enumerate(decks.itertuples()):
         try:
             if decks_row.deck_id not in deck_leaders['deck_id'].values:
-                if decks_row.source == 'swudb':
-                    url = f'https://swudb.com/api/deck/{decks_row.deck_id}'
-                    response = requests.get(url)
-                    if response.status_code == 200:
-                        deck = response.json()
-                        if deck['secondLeader'] == None:
-                            deck_leaders = pd.concat([
-                                deck_leaders,
-                                pd.DataFrame(
-                                    [[decks_row.deck_id, deck['leader']['defaultExpansionAbbreviation'] + '_' + deck['leader']['defaultCardNumber']]],
-                                    columns=['deck_id', 'card_id']
-                                )
-                            ])
-                            deck_bases = pd.DataFrame(
-                                [[decks_row.deck_id, deck['base']['defaultExpansionAbbreviation'] + '_' + deck['base']['defaultCardNumber'], 1]],
-                                columns=['deck_id', 'card_id', 'num']
-                            )
-                            deck_cards = pd.concat([
-                                deck_cards,
-                                deck_bases,
-                                pd.DataFrame(
-                                    [[decks_row.deck_id, card['card']['defaultExpansionAbbreviation'] + '_' + card['card']['defaultCardNumber'], card['count']] for card in deck['shuffledDeck']],
-                                    columns=['deck_id', 'card_id', 'num']
-                                )
-                            ])
-                            logger.debug(f'{i+1}/{decks.shape[0]} | {decks_row.source} | {decks_row.deck_id}')
-                            success_count += 1
-                        else:
-                            logger.debug(f'{i+1}/{decks.shape[0]} | {decks_row.source} | {decks_row.deck_id} SKIPPED (TS)')
-                            decks = decks.drop(decks[decks['deck_id']==decks_row.deck_id].index)
-                            dropped_count += 1
-                    else:
-                        logger.debug(f'{i+1}/{decks.shape[0]} | {decks_row.source} | {decks_row.deck_id} SKIPPED (404)')
-                        decks = decks.drop(decks[decks['deck_id']==decks_row.deck_id].index)
-                        dropped_count += 1
-                elif decks_row.source == 'sw-unlimited-db':
-                    url = f'https://sw-unlimited-db.com/umbraco/api/export/export?deckId={decks_row.deck_id}&exportId=da7e2602-c2d7-4773-9ce1-9f1eb2b2ae8a'
-                    response = requests.get(url)
-                    if response.status_code == 200:
-                        deck = response.json()
-                        deck_leaders = pd.concat([
-                            deck_leaders,
-                            pd.DataFrame(
-                                [[decks_row.deck_id, deck['leader']['id']]],
-                                columns=['deck_id', 'card_id']
-                            )
-                        ])
-                        deck_bases = pd.DataFrame(
-                            [[decks_row.deck_id, deck['base']['id'], 1]],
-                            columns=['deck_id', 'card_id', 'num']
-                        )
-                        deck_cards = pd.concat([
-                            deck_cards,
-                            deck_bases,
-                            pd.DataFrame(
-                                [[decks_row.deck_id, card['id'], card['count']] for card in deck['deck']],
-                                columns=['deck_id', 'card_id', 'num']
-                            )
-                        ])
-                        logger.debug(f'{i+1}/{decks.shape[0]} | {decks_row.source} | {decks_row.deck_id}')
-                        success_count += 1
-                    else:
-                        logger.debug(f'{i+1}/{decks.shape[0]} | {decks_row.source} | {decks_row.deck_id} SKIPPED (404)')
-                        decks = decks.drop(decks[decks['deck_id']==decks_row.deck_id].index)
-                        dropped_count += 1
+                try:
+                    if decks_row.source == 'swudb':
+                        new_leaders, new_cards = download_swudb(decks_row.deck_id)
+                    elif decks_row.source == 'sw-unlimited-db':
+                        new_leaders, new_cards = download_sw_unlimited_db(decks_row.deck_id)
+                    logger.debug(f'{i}/{decks.shape[0]} SUCCESS {decks_row.deck_id}')
+                    deck_leaders = pd.concat([deck_leaders, new_leaders])
+                    deck_cards = pd.concat([deck_cards, new_cards])
+                except Exception as e:
+                    skipped_count += 1
+                    logger.debug(f'{i}/{decks.shape[0]} SKIPPED {decks_row.deck_id} ({e})')
+            else:
+                # logger.debug(f'{i}/{decks.shape[0]} SKIPPED {decks_row.deck_id} (EXISTS)')
+                True
         except Exception as e:
             logger.error(f'An Exception has occured {e}')
     deck_leaders = deck_leaders.drop_duplicates()
     deck_cards = deck_cards.drop_duplicates()
-    db_conn.write(decks, 'decks')
+    # db_conn.write(decks, 'decks')
     db_conn.write(deck_leaders, 'deck_leaders')
     db_conn.write(deck_cards, 'deck_cards')
     conn.commit()
     conn.close()
-    logger.info(f'Skipped: {dropped_count}')
+    logger.info(f'Skipped: {skipped_count}')
     logger.success(f'New Decks: {success_count}')
     logger.success(f'Total Decks: {deck_leaders.shape[0]}')
 
 
 if __name__ == '__main__':
     t_0 = time.time()
-    overhaul_sets()
-    update_cards()
-    # get_new_deck_ids()
+    # overhaul_sets()
+    # update_cards()
+    get_new_deck_ids()
+    download_decks()
     t_1 = time.time()
     logger.success(f'RUN COMPLETE - {int(t_1 - t_0)}s')
 
