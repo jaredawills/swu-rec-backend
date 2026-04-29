@@ -1,0 +1,145 @@
+{
+  "metadata": {
+    "name": "This is the way"
+  },
+  "leader": {
+    "id": "SOR_008",
+    "count": 1
+  },
+  "base": {
+    "id": "JTL_021",
+    "count": 1
+  },
+  "deck": [
+    {
+      "unit": "Unit",
+      "id": "SHD_045",
+      "count": 1
+    },
+    {
+      "unit": "Unit",
+      "id": "LAW_038",
+      "count": 3
+    },
+    {
+      "unit": "Unit",
+      "id": "LAW_039",
+      "count": 1
+    },
+    {
+      "unit": "Unit",
+      "id": "SOR_188",
+      "count": 2
+    },
+    {
+      "unit": "Unit",
+      "id": "LAW_055",
+      "count": 3
+    },
+    {
+      "unit": "Unit",
+      "id": "LOF_046",
+      "count": 2
+    },
+    {
+      "unit": "Unit",
+      "id": "SOR_192",
+      "count": 1
+    },
+    {
+      "unit": "Unit",
+      "id": "LAW_035",
+      "count": 2
+    },
+    {
+      "unit": "Unit",
+      "id": "JTL_045",
+      "count": 2
+    },
+    {
+      "unit": "Unit",
+      "id": "LAW_078",
+      "count": 2
+    },
+    {
+      "unit": "Unit",
+      "id": "SOR_142",
+      "count": 3
+    },
+    {
+      "unit": "Unit",
+      "id": "SEC_155",
+      "count": 1
+    },
+    {
+      "unit": "Unit",
+      "id": "SOR_098",
+      "count": 2
+    },
+    {
+      "unit": "Unit",
+      "id": "SOR_047",
+      "count": 2
+    },
+    {
+      "unit": "Unit",
+      "id": "LAW_089",
+      "count": 2
+    },
+    {
+      "unit": "Unit",
+      "id": "SOR_146",
+      "count": 2
+    },
+    {
+      "unit": "Unit",
+      "id": "LAW_045",
+      "count": 3
+    },
+    {
+      "unit": "Unit",
+      "id": "LAW_069",
+      "count": 1
+    },
+    {
+      "unit": "Unit",
+      "id": "JTL_053",
+      "count": 2
+    },
+    {
+      "unit": "Unit",
+      "id": "SOR_050",
+      "count": 3
+    },
+    {
+      "unit": "Unit",
+      "id": "SOR_052",
+      "count": 1
+    },
+    {
+      "unit": "Unit",
+      "id": "JTL_050",
+      "count": 2
+    },
+    {
+      "unit": "Unit",
+      "id": "LAW_144",
+      "count": 2
+    },
+    {
+      "unit": "Event",
+      "id": "JTL_076",
+      "count": 2
+    },
+    {
+      "unit": "Event",
+      "id": "SOR_055",
+      "count": 1
+    },
+    {
+      "unit": "Event",
+      "id": "LAW_256",
+      "count": 2
+    }
+  ]
+}

@@ -1,0 +1,2384 @@
+{
+  "deckId": "pEylHclwYEc",
+  "authorId": "7d898bc4-e40a-49de-b6ec-f9c402a3678c",
+  "deckName": "Thrawn rage",
+  "editable": false,
+  "deckFormat": 1,
+  "authorName": "FNEvilKitty",
+  "versionNumber": 5,
+  "displayStatus": 3,
+  "publishDate": "2026-04-25T22:10:05.512415Z",
+  "likeCount": 0,
+  "likedByUser": false,
+  "leader": {
+    "cardId": 821,
+    "cardName": "Grand Admiral Thrawn",
+    "title": "...How Unfortunate",
+    "cost": 6,
+    "aspects": [
+      4,
+      6
+    ],
+    "frontsideAspects": [
+      4,
+      6
+    ],
+    "backsideAspects": [
+      4,
+      6
+    ],
+    "type": 0,
+    "arena": 0,
+    "alternativeDeckMaximum": null,
+    "defaultImagePath": "/cards/JTL/002.png",
+    "defaultExpansionAbbreviation": "JTL",
+    "defaultCardNumber": "002",
+    "defaultRarity": 1
+  },
+  "secondLeader": null,
+  "base": {
+    "cardId": 20308,
+    "cardName": "Contested Caverns",
+    "title": "",
+    "cost": null,
+    "aspects": [
+      1
+    ],
+    "frontsideAspects": [
+      1
+    ],
+    "backsideAspects": [],
+    "type": 1,
+    "arena": null,
+    "alternativeDeckMaximum": null,
+    "defaultImagePath": "/cards/LAW/025.png",
+    "defaultExpansionAbbreviation": "LAW",
+    "defaultCardNumber": "025",
+    "defaultRarity": 1
+  },
+  "aspects": [
+    1,
+    4,
+    6
+  ],
+  "neededTokens": [
+    2,
+    5
+  ],
+  "formattedDescription": "",
+  "shuffledDeck": [
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 824,
+        "cardName": "Shuttle ST-149",
+        "title": "Under Krennic's Authority",
+        "cost": 4,
+        "aspects": [
+          6
+        ],
+        "frontsideAspects": [
+          6
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 1,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "~/cards/JTL/242.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "242",
+        "defaultRarity": 2
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.938739Z"
+    },
+    {
+      "id": null,
+      "count": 3,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 825,
+        "cardName": "Director Krennic",
+        "title": "On the Verge of Greatness",
+        "cost": 2,
+        "aspects": [
+          4,
+          6
+        ],
+        "frontsideAspects": [
+          4,
+          6
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 0,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "~/cards/JTL/032.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "032",
+        "defaultRarity": 2
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.93874Z"
+    },
+    {
+      "id": null,
+      "count": 3,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 19721,
+        "cardName": "HK-87 Assassin Droid",
+        "title": "",
+        "cost": 5,
+        "aspects": [
+          6
+        ],
+        "frontsideAspects": [
+          6
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 0,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LOF/235.png",
+        "defaultExpansionAbbreviation": "LOF",
+        "defaultCardNumber": "235",
+        "defaultRarity": 2
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.93874Z"
+    },
+    {
+      "id": null,
+      "count": 0,
+      "sideboardCount": 2,
+      "purpose": 0,
+      "card": {
+        "cardId": 20154,
+        "cardName": "Shadow Cloaking",
+        "title": "",
+        "cost": 5,
+        "aspects": [
+          1,
+          4,
+          6
+        ],
+        "frontsideAspects": [
+          1,
+          4,
+          6
+        ],
+        "backsideAspects": [],
+        "type": 3,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LAW/043.png",
+        "defaultExpansionAbbreviation": "LAW",
+        "defaultCardNumber": "043",
+        "defaultRarity": 2
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.931919Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 20011,
+        "cardName": "Sudden Ferocity",
+        "title": "",
+        "cost": 3,
+        "aspects": [
+          1
+        ],
+        "frontsideAspects": [
+          1
+        ],
+        "backsideAspects": [],
+        "type": 4,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/SEC/176.png",
+        "defaultExpansionAbbreviation": "SEC",
+        "defaultCardNumber": "176",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.938742Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 20253,
+        "cardName": "Arvel Skeen",
+        "title": "Win and Walk Away",
+        "cost": 3,
+        "aspects": [
+          1
+        ],
+        "frontsideAspects": [
+          1
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 0,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LAW/191.png",
+        "defaultExpansionAbbreviation": "LAW",
+        "defaultCardNumber": "191",
+        "defaultRarity": 2
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.938743Z"
+    },
+    {
+      "id": null,
+      "count": 3,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 19626,
+        "cardName": "The Legacy Run",
+        "title": "Doomed Debris",
+        "cost": 5,
+        "aspects": [
+          3
+        ],
+        "frontsideAspects": [
+          3
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 1,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LOF/213.png",
+        "defaultExpansionAbbreviation": "LOF",
+        "defaultCardNumber": "213",
+        "defaultRarity": 4
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.938743Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 20169,
+        "cardName": "The Tree Remembers",
+        "title": "",
+        "cost": 4,
+        "aspects": [
+          4
+        ],
+        "frontsideAspects": [
+          4
+        ],
+        "backsideAspects": [],
+        "type": 3,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LAW/132.png",
+        "defaultExpansionAbbreviation": "LAW",
+        "defaultCardNumber": "132",
+        "defaultRarity": 2
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.938743Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 19838,
+        "cardName": "Admiral Ozzel",
+        "title": "As Clumsy As He Is Stupid",
+        "cost": 3,
+        "aspects": [
+          1,
+          6
+        ],
+        "frontsideAspects": [
+          1,
+          6
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 0,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/IBH/082.png",
+        "defaultExpansionAbbreviation": "IBH",
+        "defaultCardNumber": "082",
+        "defaultRarity": 5
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.938745Z"
+    },
+    {
+      "id": null,
+      "count": 3,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 20289,
+        "cardName": "Droid Laser Turret",
+        "title": "",
+        "cost": 3,
+        "aspects": [
+          4
+        ],
+        "frontsideAspects": [
+          4
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 0,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LAW/118.png",
+        "defaultExpansionAbbreviation": "LAW",
+        "defaultCardNumber": "118",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.938745Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 20338,
+        "cardName": "Flash the Vents",
+        "title": "",
+        "cost": 1,
+        "aspects": [
+          1
+        ],
+        "frontsideAspects": [
+          1
+        ],
+        "backsideAspects": [],
+        "type": 3,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LAW/205.png",
+        "defaultExpansionAbbreviation": "LAW",
+        "defaultCardNumber": "205",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.930461Z"
+    },
+    {
+      "id": null,
+      "count": 0,
+      "sideboardCount": 2,
+      "purpose": 0,
+      "card": {
+        "cardId": 19873,
+        "cardName": "Retaliation",
+        "title": "",
+        "cost": 5,
+        "aspects": [
+          4
+        ],
+        "frontsideAspects": [
+          4
+        ],
+        "backsideAspects": [],
+        "type": 3,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/SEC/077.png",
+        "defaultExpansionAbbreviation": "SEC",
+        "defaultCardNumber": "077",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.938731Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 827,
+        "cardName": "Droid Missile Platform",
+        "title": null,
+        "cost": 3,
+        "aspects": [
+          1
+        ],
+        "frontsideAspects": [
+          1
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 1,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "~/cards/JTL/162.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "162",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.938746Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 903,
+        "cardName": "No Glory, Only Results",
+        "title": "",
+        "cost": 5,
+        "aspects": [
+          4,
+          6
+        ],
+        "frontsideAspects": [
+          4,
+          6
+        ],
+        "backsideAspects": [],
+        "type": 3,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/JTL/043.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "043",
+        "defaultRarity": 3
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.938747Z"
+    },
+    {
+      "id": null,
+      "count": 0,
+      "sideboardCount": 2,
+      "purpose": 0,
+      "card": {
+        "cardId": 805,
+        "cardName": "Planetary Bombardment",
+        "title": null,
+        "cost": 6,
+        "aspects": [
+          1
+        ],
+        "frontsideAspects": [
+          1
+        ],
+        "backsideAspects": [],
+        "type": 3,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "~/cards/JTL/181.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "181",
+        "defaultRarity": 4
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.938747Z"
+    },
+    {
+      "id": null,
+      "count": 3,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 828,
+        "cardName": "Chimaera",
+        "title": "Reinforcing the Center",
+        "cost": 6,
+        "aspects": [
+          4,
+          6
+        ],
+        "frontsideAspects": [
+          4,
+          6
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 1,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "~/cards/JTL/039.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "039",
+        "defaultRarity": 2
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.938748Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 944,
+        "cardName": "System Shock",
+        "title": "",
+        "cost": 1,
+        "aspects": [
+          1
+        ],
+        "frontsideAspects": [
+          1
+        ],
+        "backsideAspects": [],
+        "type": 3,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/JTL/175.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "175",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.933815Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 19587,
+        "cardName": "Nightsister Warrior",
+        "title": "",
+        "cost": 2,
+        "aspects": [
+          4
+        ],
+        "frontsideAspects": [
+          4
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 0,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LOF/059.png",
+        "defaultExpansionAbbreviation": "LOF",
+        "defaultCardNumber": "059",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.938749Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 20287,
+        "cardName": "Honnah",
+        "title": "Oink! Squee!",
+        "cost": 4,
+        "aspects": [
+          1,
+          4
+        ],
+        "frontsideAspects": [
+          1,
+          4
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 0,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LAW/050.png",
+        "defaultExpansionAbbreviation": "LAW",
+        "defaultCardNumber": "050",
+        "defaultRarity": 2
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.938749Z"
+    },
+    {
+      "id": null,
+      "count": 3,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 20005,
+        "cardName": "Aggressive Negotiations",
+        "title": "",
+        "cost": 3,
+        "aspects": [
+          1
+        ],
+        "frontsideAspects": [
+          1
+        ],
+        "backsideAspects": [],
+        "type": 3,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/SEC/179.png",
+        "defaultExpansionAbbreviation": "SEC",
+        "defaultCardNumber": "179",
+        "defaultRarity": 2
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.938749Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 826,
+        "cardName": "Onyx Squadron Brute",
+        "title": null,
+        "cost": 2,
+        "aspects": [
+          4,
+          6
+        ],
+        "frontsideAspects": [
+          4,
+          6
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 1,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "~/cards/JTL/033.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "033",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.93875Z"
+    },
+    {
+      "id": null,
+      "count": 3,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 20039,
+        "cardName": "Condemn",
+        "title": "",
+        "cost": 3,
+        "aspects": [
+          4,
+          6
+        ],
+        "frontsideAspects": [
+          4,
+          6
+        ],
+        "backsideAspects": [],
+        "type": 4,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/SEC/038.png",
+        "defaultExpansionAbbreviation": "SEC",
+        "defaultCardNumber": "038",
+        "defaultRarity": 3
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.938751Z"
+    },
+    {
+      "id": null,
+      "count": 0,
+      "sideboardCount": 2,
+      "purpose": 0,
+      "card": {
+        "cardId": 1012,
+        "cardName": "Shoot Down",
+        "title": "",
+        "cost": 2,
+        "aspects": [
+          1
+        ],
+        "frontsideAspects": [
+          1
+        ],
+        "backsideAspects": [],
+        "type": 3,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/JTL/176.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "176",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.935518Z"
+    },
+    {
+      "id": null,
+      "count": 0,
+      "sideboardCount": 2,
+      "purpose": 0,
+      "card": {
+        "cardId": 20339,
+        "cardName": "Collateral Damage",
+        "title": "",
+        "cost": 3,
+        "aspects": [
+          1
+        ],
+        "frontsideAspects": [
+          1
+        ],
+        "backsideAspects": [],
+        "type": 3,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LAW/208.png",
+        "defaultExpansionAbbreviation": "LAW",
+        "defaultCardNumber": "208",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.937035Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 19900,
+        "cardName": "Arihnda Pryce",
+        "title": "On The Road To Power",
+        "cost": 4,
+        "aspects": [
+          1,
+          6
+        ],
+        "frontsideAspects": [
+          1,
+          6
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 0,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/SEC/136.png",
+        "defaultExpansionAbbreviation": "SEC",
+        "defaultCardNumber": "136",
+        "defaultRarity": 3
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.938751Z"
+    },
+    {
+      "id": null,
+      "count": 1,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 807,
+        "cardName": "Fleet Interdictor",
+        "title": null,
+        "cost": 7,
+        "aspects": [
+          4,
+          6
+        ],
+        "frontsideAspects": [
+          4,
+          6
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 1,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "~/cards/JTL/040.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "040",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.928073Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 20304,
+        "cardName": "Cavern Angels X-Wing",
+        "title": "",
+        "cost": 2,
+        "aspects": [
+          1
+        ],
+        "frontsideAspects": [
+          1
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 1,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LAW/189.png",
+        "defaultExpansionAbbreviation": "LAW",
+        "defaultCardNumber": "189",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.938752Z"
+    }
+  ],
+  "historicalChanges": [
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 19921,
+        "cardName": "Bardottan Ornithopter",
+        "title": "",
+        "cost": 4,
+        "aspects": [
+          4
+        ],
+        "frontsideAspects": [
+          4
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 1,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/SEC/062.png",
+        "defaultExpansionAbbreviation": "SEC",
+        "defaultCardNumber": "062",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.006219Z"
+    },
+    {
+      "id": null,
+      "count": 0,
+      "sideboardCount": -2,
+      "purpose": 0,
+      "card": {
+        "cardId": 823,
+        "cardName": "Landing Shuttle",
+        "title": null,
+        "cost": 3,
+        "aspects": [
+          4
+        ],
+        "frontsideAspects": [
+          4
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 1,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "~/cards/JTL/063.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "063",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 2,
+      "changeDate": "2026-04-25T21:43:45.040007Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 827,
+        "cardName": "Droid Missile Platform",
+        "title": null,
+        "cost": 3,
+        "aspects": [
+          1
+        ],
+        "frontsideAspects": [
+          1
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 1,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "~/cards/JTL/162.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "162",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.006242Z"
+    },
+    {
+      "id": null,
+      "count": 0,
+      "sideboardCount": 2,
+      "purpose": 0,
+      "card": {
+        "cardId": 20253,
+        "cardName": "Arvel Skeen",
+        "title": "Win and Walk Away",
+        "cost": 3,
+        "aspects": [
+          1
+        ],
+        "frontsideAspects": [
+          1
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 0,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LAW/191.png",
+        "defaultExpansionAbbreviation": "LAW",
+        "defaultCardNumber": "191",
+        "defaultRarity": 2
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.006251Z"
+    },
+    {
+      "id": null,
+      "count": 0,
+      "sideboardCount": 2,
+      "purpose": 0,
+      "card": {
+        "cardId": 903,
+        "cardName": "No Glory, Only Results",
+        "title": "",
+        "cost": 5,
+        "aspects": [
+          4,
+          6
+        ],
+        "frontsideAspects": [
+          4,
+          6
+        ],
+        "backsideAspects": [],
+        "type": 3,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/JTL/043.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "043",
+        "defaultRarity": 3
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.006222Z"
+    },
+    {
+      "id": null,
+      "count": 0,
+      "sideboardCount": 2,
+      "purpose": 0,
+      "card": {
+        "cardId": 20339,
+        "cardName": "Collateral Damage",
+        "title": "",
+        "cost": 3,
+        "aspects": [
+          1
+        ],
+        "frontsideAspects": [
+          1
+        ],
+        "backsideAspects": [],
+        "type": 3,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LAW/208.png",
+        "defaultExpansionAbbreviation": "LAW",
+        "defaultCardNumber": "208",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.937037Z"
+    },
+    {
+      "id": null,
+      "count": 0,
+      "sideboardCount": -2,
+      "purpose": 0,
+      "card": {
+        "cardId": 19921,
+        "cardName": "Bardottan Ornithopter",
+        "title": "",
+        "cost": 4,
+        "aspects": [
+          4
+        ],
+        "frontsideAspects": [
+          4
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 1,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/SEC/062.png",
+        "defaultExpansionAbbreviation": "SEC",
+        "defaultCardNumber": "062",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 4,
+      "changeDate": "2026-04-28T22:57:10.926168Z"
+    },
+    {
+      "id": null,
+      "count": 0,
+      "sideboardCount": -2,
+      "purpose": 0,
+      "card": {
+        "cardId": 19942,
+        "cardName": "Emergency Powers",
+        "title": "",
+        "cost": 1,
+        "aspects": [
+          4,
+          6
+        ],
+        "frontsideAspects": [
+          4,
+          6
+        ],
+        "backsideAspects": [],
+        "type": 3,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/SEC/040.png",
+        "defaultExpansionAbbreviation": "SEC",
+        "defaultCardNumber": "040",
+        "defaultRarity": 3
+      },
+      "isDiff": false,
+      "version": 4,
+      "changeDate": "2026-04-28T22:57:10.926169Z"
+    },
+    {
+      "id": null,
+      "count": 0,
+      "sideboardCount": -1,
+      "purpose": 0,
+      "card": {
+        "cardId": 807,
+        "cardName": "Fleet Interdictor",
+        "title": null,
+        "cost": 7,
+        "aspects": [
+          4,
+          6
+        ],
+        "frontsideAspects": [
+          4,
+          6
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 1,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "~/cards/JTL/040.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "040",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.928106Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 20011,
+        "cardName": "Sudden Ferocity",
+        "title": "",
+        "cost": 3,
+        "aspects": [
+          1
+        ],
+        "frontsideAspects": [
+          1
+        ],
+        "backsideAspects": [],
+        "type": 4,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/SEC/176.png",
+        "defaultExpansionAbbreviation": "SEC",
+        "defaultCardNumber": "176",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.00626Z"
+    },
+    {
+      "id": null,
+      "count": -3,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 20157,
+        "cardName": "Chio Fain",
+        "title": "Four-Armed Slicer",
+        "cost": 2,
+        "aspects": [
+          1,
+          4
+        ],
+        "frontsideAspects": [
+          1,
+          4
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 0,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LAW/048.png",
+        "defaultExpansionAbbreviation": "LAW",
+        "defaultCardNumber": "048",
+        "defaultRarity": 2
+      },
+      "isDiff": false,
+      "version": 2,
+      "changeDate": "2026-04-25T21:43:45.040009Z"
+    },
+    {
+      "id": null,
+      "count": 3,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 20039,
+        "cardName": "Condemn",
+        "title": "",
+        "cost": 3,
+        "aspects": [
+          4,
+          6
+        ],
+        "frontsideAspects": [
+          4,
+          6
+        ],
+        "backsideAspects": [],
+        "type": 4,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/SEC/038.png",
+        "defaultExpansionAbbreviation": "SEC",
+        "defaultCardNumber": "038",
+        "defaultRarity": 3
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.006217Z"
+    },
+    {
+      "id": null,
+      "count": 1,
+      "sideboardCount": 0,
+      "purpose": 3,
+      "card": {
+        "cardId": 20308,
+        "cardName": "Contested Caverns",
+        "title": "",
+        "cost": null,
+        "aspects": [
+          1
+        ],
+        "frontsideAspects": [
+          1
+        ],
+        "backsideAspects": [],
+        "type": 1,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LAW/025.png",
+        "defaultExpansionAbbreviation": "LAW",
+        "defaultCardNumber": "025",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.006196Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 20304,
+        "cardName": "Cavern Angels X-Wing",
+        "title": "",
+        "cost": 2,
+        "aspects": [
+          1
+        ],
+        "frontsideAspects": [
+          1
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 1,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LAW/189.png",
+        "defaultExpansionAbbreviation": "LAW",
+        "defaultCardNumber": "189",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.006226Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 20154,
+        "cardName": "Shadow Cloaking",
+        "title": "",
+        "cost": 5,
+        "aspects": [
+          1,
+          4,
+          6
+        ],
+        "frontsideAspects": [
+          1,
+          4,
+          6
+        ],
+        "backsideAspects": [],
+        "type": 3,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LAW/043.png",
+        "defaultExpansionAbbreviation": "LAW",
+        "defaultCardNumber": "043",
+        "defaultRarity": 2
+      },
+      "isDiff": false,
+      "version": 3,
+      "changeDate": "2026-04-25T21:43:45.045702Z"
+    },
+    {
+      "id": null,
+      "count": 3,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 20289,
+        "cardName": "Droid Laser Turret",
+        "title": "",
+        "cost": 3,
+        "aspects": [
+          4
+        ],
+        "frontsideAspects": [
+          4
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 0,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LAW/118.png",
+        "defaultExpansionAbbreviation": "LAW",
+        "defaultCardNumber": "118",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.006224Z"
+    },
+    {
+      "id": null,
+      "count": 3,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 824,
+        "cardName": "Shuttle ST-149",
+        "title": "Under Krennic's Authority",
+        "cost": 4,
+        "aspects": [
+          6
+        ],
+        "frontsideAspects": [
+          6
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 1,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "~/cards/JTL/242.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "242",
+        "defaultRarity": 2
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.006229Z"
+    },
+    {
+      "id": null,
+      "count": 0,
+      "sideboardCount": 2,
+      "purpose": 0,
+      "card": {
+        "cardId": 19942,
+        "cardName": "Emergency Powers",
+        "title": "",
+        "cost": 1,
+        "aspects": [
+          4,
+          6
+        ],
+        "frontsideAspects": [
+          4,
+          6
+        ],
+        "backsideAspects": [],
+        "type": 3,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/SEC/040.png",
+        "defaultExpansionAbbreviation": "SEC",
+        "defaultCardNumber": "040",
+        "defaultRarity": 3
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.006215Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 20287,
+        "cardName": "Honnah",
+        "title": "Oink! Squee!",
+        "cost": 4,
+        "aspects": [
+          1,
+          4
+        ],
+        "frontsideAspects": [
+          1,
+          4
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 0,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LAW/050.png",
+        "defaultExpansionAbbreviation": "LAW",
+        "defaultCardNumber": "050",
+        "defaultRarity": 2
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.00625Z"
+    },
+    {
+      "id": null,
+      "count": 3,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 19721,
+        "cardName": "HK-87 Assassin Droid",
+        "title": "",
+        "cost": 5,
+        "aspects": [
+          6
+        ],
+        "frontsideAspects": [
+          6
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 0,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LOF/235.png",
+        "defaultExpansionAbbreviation": "LOF",
+        "defaultCardNumber": "235",
+        "defaultRarity": 2
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.006258Z"
+    },
+    {
+      "id": null,
+      "count": 3,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 20157,
+        "cardName": "Chio Fain",
+        "title": "Four-Armed Slicer",
+        "cost": 2,
+        "aspects": [
+          1,
+          4
+        ],
+        "frontsideAspects": [
+          1,
+          4
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 0,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LAW/048.png",
+        "defaultExpansionAbbreviation": "LAW",
+        "defaultCardNumber": "048",
+        "defaultRarity": 2
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.006227Z"
+    },
+    {
+      "id": null,
+      "count": -2,
+      "sideboardCount": 2,
+      "purpose": 0,
+      "card": {
+        "cardId": 823,
+        "cardName": "Landing Shuttle",
+        "title": null,
+        "cost": 3,
+        "aspects": [
+          4
+        ],
+        "frontsideAspects": [
+          4
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 1,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "~/cards/JTL/063.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "063",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 2,
+      "changeDate": "2026-04-25T21:30:10.963579Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 19587,
+        "cardName": "Nightsister Warrior",
+        "title": "",
+        "cost": 2,
+        "aspects": [
+          4
+        ],
+        "frontsideAspects": [
+          4
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 0,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LOF/059.png",
+        "defaultExpansionAbbreviation": "LOF",
+        "defaultCardNumber": "059",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.006256Z"
+    },
+    {
+      "id": null,
+      "count": -2,
+      "sideboardCount": 2,
+      "purpose": 0,
+      "card": {
+        "cardId": 19921,
+        "cardName": "Bardottan Ornithopter",
+        "title": "",
+        "cost": 4,
+        "aspects": [
+          4
+        ],
+        "frontsideAspects": [
+          4
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 1,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/SEC/062.png",
+        "defaultExpansionAbbreviation": "SEC",
+        "defaultCardNumber": "062",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 2,
+      "changeDate": "2026-04-25T21:30:10.965572Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": -2,
+      "purpose": 0,
+      "card": {
+        "cardId": 20253,
+        "cardName": "Arvel Skeen",
+        "title": "Win and Walk Away",
+        "cost": 3,
+        "aspects": [
+          1
+        ],
+        "frontsideAspects": [
+          1
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 0,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LAW/191.png",
+        "defaultExpansionAbbreviation": "LAW",
+        "defaultCardNumber": "191",
+        "defaultRarity": 2
+      },
+      "isDiff": false,
+      "version": 2,
+      "changeDate": "2026-04-25T21:30:10.967449Z"
+    },
+    {
+      "id": null,
+      "count": -1,
+      "sideboardCount": 1,
+      "purpose": 0,
+      "card": {
+        "cardId": 20154,
+        "cardName": "Shadow Cloaking",
+        "title": "",
+        "cost": 5,
+        "aspects": [
+          1,
+          4,
+          6
+        ],
+        "frontsideAspects": [
+          1,
+          4,
+          6
+        ],
+        "backsideAspects": [],
+        "type": 3,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LAW/043.png",
+        "defaultExpansionAbbreviation": "LAW",
+        "defaultCardNumber": "043",
+        "defaultRarity": 2
+      },
+      "isDiff": false,
+      "version": 4,
+      "changeDate": "2026-04-26T03:38:10.039301Z"
+    },
+    {
+      "id": null,
+      "count": -1,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 20338,
+        "cardName": "Flash the Vents",
+        "title": "",
+        "cost": 1,
+        "aspects": [
+          1
+        ],
+        "frontsideAspects": [
+          1
+        ],
+        "backsideAspects": [],
+        "type": 3,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LAW/205.png",
+        "defaultExpansionAbbreviation": "LAW",
+        "defaultCardNumber": "205",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.93049Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": -2,
+      "purpose": 0,
+      "card": {
+        "cardId": 903,
+        "cardName": "No Glory, Only Results",
+        "title": "",
+        "cost": 5,
+        "aspects": [
+          4,
+          6
+        ],
+        "frontsideAspects": [
+          4,
+          6
+        ],
+        "backsideAspects": [],
+        "type": 3,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/JTL/043.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "043",
+        "defaultRarity": 3
+      },
+      "isDiff": false,
+      "version": 2,
+      "changeDate": "2026-04-25T21:30:10.969013Z"
+    },
+    {
+      "id": null,
+      "count": 0,
+      "sideboardCount": 2,
+      "purpose": 0,
+      "card": {
+        "cardId": 1012,
+        "cardName": "Shoot Down",
+        "title": "",
+        "cost": 2,
+        "aspects": [
+          1
+        ],
+        "frontsideAspects": [
+          1
+        ],
+        "backsideAspects": [],
+        "type": 3,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/JTL/176.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "176",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.935519Z"
+    },
+    {
+      "id": null,
+      "count": 0,
+      "sideboardCount": 2,
+      "purpose": 0,
+      "card": {
+        "cardId": 19838,
+        "cardName": "Admiral Ozzel",
+        "title": "As Clumsy As He Is Stupid",
+        "cost": 3,
+        "aspects": [
+          1,
+          6
+        ],
+        "frontsideAspects": [
+          1,
+          6
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 0,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/IBH/082.png",
+        "defaultExpansionAbbreviation": "IBH",
+        "defaultCardNumber": "082",
+        "defaultRarity": 5
+      },
+      "isDiff": false,
+      "version": 3,
+      "changeDate": "2026-04-25T21:43:45.047385Z"
+    },
+    {
+      "id": null,
+      "count": 0,
+      "sideboardCount": 2,
+      "purpose": 0,
+      "card": {
+        "cardId": 19873,
+        "cardName": "Retaliation",
+        "title": "",
+        "cost": 5,
+        "aspects": [
+          4
+        ],
+        "frontsideAspects": [
+          4
+        ],
+        "backsideAspects": [],
+        "type": 3,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/SEC/077.png",
+        "defaultExpansionAbbreviation": "SEC",
+        "defaultCardNumber": "077",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.938733Z"
+    },
+    {
+      "id": null,
+      "count": 3,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 19626,
+        "cardName": "The Legacy Run",
+        "title": "Doomed Debris",
+        "cost": 5,
+        "aspects": [
+          3
+        ],
+        "frontsideAspects": [
+          3
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 1,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LOF/213.png",
+        "defaultExpansionAbbreviation": "LOF",
+        "defaultCardNumber": "213",
+        "defaultRarity": 4
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.006253Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 807,
+        "cardName": "Fleet Interdictor",
+        "title": null,
+        "cost": 7,
+        "aspects": [
+          4,
+          6
+        ],
+        "frontsideAspects": [
+          4,
+          6
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 1,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "~/cards/JTL/040.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "040",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 3,
+      "changeDate": "2026-04-25T21:43:45.043805Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 826,
+        "cardName": "Onyx Squadron Brute",
+        "title": null,
+        "cost": 2,
+        "aspects": [
+          4,
+          6
+        ],
+        "frontsideAspects": [
+          4,
+          6
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 1,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "~/cards/JTL/033.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "033",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.006248Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 823,
+        "cardName": "Landing Shuttle",
+        "title": null,
+        "cost": 3,
+        "aspects": [
+          4
+        ],
+        "frontsideAspects": [
+          4
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 1,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "~/cards/JTL/063.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "063",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.006231Z"
+    },
+    {
+      "id": null,
+      "count": -1,
+      "sideboardCount": 1,
+      "purpose": 0,
+      "card": {
+        "cardId": 807,
+        "cardName": "Fleet Interdictor",
+        "title": null,
+        "cost": 7,
+        "aspects": [
+          4,
+          6
+        ],
+        "frontsideAspects": [
+          4,
+          6
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 1,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "~/cards/JTL/040.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "040",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 4,
+      "changeDate": "2026-04-26T03:38:10.040724Z"
+    },
+    {
+      "id": null,
+      "count": 0,
+      "sideboardCount": 2,
+      "purpose": 0,
+      "card": {
+        "cardId": 19704,
+        "cardName": "Axe Woves",
+        "title": "Accomplished Warrior",
+        "cost": 3,
+        "aspects": [
+          4
+        ],
+        "frontsideAspects": [
+          4
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 0,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LOF/062.png",
+        "defaultExpansionAbbreviation": "LOF",
+        "defaultCardNumber": "062",
+        "defaultRarity": 3
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.006261Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 944,
+        "cardName": "System Shock",
+        "title": "",
+        "cost": 1,
+        "aspects": [
+          1
+        ],
+        "frontsideAspects": [
+          1
+        ],
+        "backsideAspects": [],
+        "type": 3,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/JTL/175.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "175",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.933816Z"
+    },
+    {
+      "id": null,
+      "count": -1,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 824,
+        "cardName": "Shuttle ST-149",
+        "title": "Under Krennic's Authority",
+        "cost": 4,
+        "aspects": [
+          6
+        ],
+        "frontsideAspects": [
+          6
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 1,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "~/cards/JTL/242.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "242",
+        "defaultRarity": 2
+      },
+      "isDiff": false,
+      "version": 3,
+      "changeDate": "2026-04-25T21:43:45.041845Z"
+    },
+    {
+      "id": null,
+      "count": 3,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 825,
+        "cardName": "Director Krennic",
+        "title": "On the Verge of Greatness",
+        "cost": 2,
+        "aspects": [
+          4,
+          6
+        ],
+        "frontsideAspects": [
+          4,
+          6
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 0,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "~/cards/JTL/032.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "032",
+        "defaultRarity": 2
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.006244Z"
+    },
+    {
+      "id": null,
+      "count": 3,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 20338,
+        "cardName": "Flash the Vents",
+        "title": "",
+        "cost": 1,
+        "aspects": [
+          1
+        ],
+        "frontsideAspects": [
+          1
+        ],
+        "backsideAspects": [],
+        "type": 3,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LAW/205.png",
+        "defaultExpansionAbbreviation": "LAW",
+        "defaultCardNumber": "205",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.006254Z"
+    },
+    {
+      "id": null,
+      "count": -1,
+      "sideboardCount": 1,
+      "purpose": 0,
+      "card": {
+        "cardId": 20154,
+        "cardName": "Shadow Cloaking",
+        "title": "",
+        "cost": 5,
+        "aspects": [
+          1,
+          4,
+          6
+        ],
+        "frontsideAspects": [
+          1,
+          4,
+          6
+        ],
+        "backsideAspects": [],
+        "type": 3,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LAW/043.png",
+        "defaultExpansionAbbreviation": "LAW",
+        "defaultCardNumber": "043",
+        "defaultRarity": 2
+      },
+      "isDiff": false,
+      "version": 5,
+      "changeDate": "2026-04-28T22:57:10.931944Z"
+    },
+    {
+      "id": null,
+      "count": 1,
+      "sideboardCount": 0,
+      "purpose": 1,
+      "card": {
+        "cardId": 821,
+        "cardName": "Grand Admiral Thrawn",
+        "title": "...How Unfortunate",
+        "cost": 6,
+        "aspects": [
+          4,
+          6
+        ],
+        "frontsideAspects": [
+          4,
+          6
+        ],
+        "backsideAspects": [
+          4,
+          6
+        ],
+        "type": 0,
+        "arena": 0,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/JTL/002.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "002",
+        "defaultRarity": 1
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.006194Z"
+    },
+    {
+      "id": null,
+      "count": 0,
+      "sideboardCount": 2,
+      "purpose": 0,
+      "card": {
+        "cardId": 805,
+        "cardName": "Planetary Bombardment",
+        "title": null,
+        "cost": 6,
+        "aspects": [
+          1
+        ],
+        "frontsideAspects": [
+          1
+        ],
+        "backsideAspects": [],
+        "type": 3,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "~/cards/JTL/181.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "181",
+        "defaultRarity": 4
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.006234Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": -2,
+      "purpose": 0,
+      "card": {
+        "cardId": 19838,
+        "cardName": "Admiral Ozzel",
+        "title": "As Clumsy As He Is Stupid",
+        "cost": 3,
+        "aspects": [
+          1,
+          6
+        ],
+        "frontsideAspects": [
+          1,
+          6
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 0,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/IBH/082.png",
+        "defaultExpansionAbbreviation": "IBH",
+        "defaultCardNumber": "082",
+        "defaultRarity": 5
+      },
+      "isDiff": false,
+      "version": 4,
+      "changeDate": "2026-04-26T03:38:10.044086Z"
+    },
+    {
+      "id": null,
+      "count": 3,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 20005,
+        "cardName": "Aggressive Negotiations",
+        "title": "",
+        "cost": 3,
+        "aspects": [
+          1
+        ],
+        "frontsideAspects": [
+          1
+        ],
+        "backsideAspects": [],
+        "type": 3,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/SEC/179.png",
+        "defaultExpansionAbbreviation": "SEC",
+        "defaultCardNumber": "179",
+        "defaultRarity": 2
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.006236Z"
+    },
+    {
+      "id": null,
+      "count": 3,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 828,
+        "cardName": "Chimaera",
+        "title": "Reinforcing the Center",
+        "cost": 6,
+        "aspects": [
+          4,
+          6
+        ],
+        "frontsideAspects": [
+          4,
+          6
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 1,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "~/cards/JTL/039.png",
+        "defaultExpansionAbbreviation": "JTL",
+        "defaultCardNumber": "039",
+        "defaultRarity": 2
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.006246Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 20169,
+        "cardName": "The Tree Remembers",
+        "title": "",
+        "cost": 4,
+        "aspects": [
+          4
+        ],
+        "frontsideAspects": [
+          4
+        ],
+        "backsideAspects": [],
+        "type": 3,
+        "arena": null,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LAW/132.png",
+        "defaultExpansionAbbreviation": "LAW",
+        "defaultCardNumber": "132",
+        "defaultRarity": 2
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.006232Z"
+    },
+    {
+      "id": null,
+      "count": 2,
+      "sideboardCount": 0,
+      "purpose": 0,
+      "card": {
+        "cardId": 19900,
+        "cardName": "Arihnda Pryce",
+        "title": "On The Road To Power",
+        "cost": 4,
+        "aspects": [
+          1,
+          6
+        ],
+        "frontsideAspects": [
+          1,
+          6
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 0,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/SEC/136.png",
+        "defaultExpansionAbbreviation": "SEC",
+        "defaultCardNumber": "136",
+        "defaultRarity": 3
+      },
+      "isDiff": false,
+      "version": 1,
+      "changeDate": "2026-04-25T21:28:47.00622Z"
+    },
+    {
+      "id": null,
+      "count": 0,
+      "sideboardCount": -2,
+      "purpose": 0,
+      "card": {
+        "cardId": 19704,
+        "cardName": "Axe Woves",
+        "title": "Accomplished Warrior",
+        "cost": 3,
+        "aspects": [
+          4
+        ],
+        "frontsideAspects": [
+          4
+        ],
+        "backsideAspects": [],
+        "type": 2,
+        "arena": 0,
+        "alternativeDeckMaximum": null,
+        "defaultImagePath": "/cards/LOF/062.png",
+        "defaultExpansionAbbreviation": "LOF",
+        "defaultCardNumber": "062",
+        "defaultRarity": 3
+      },
+      "isDiff": false,
+      "version": 4,
+      "changeDate": "2026-04-28T22:57:10.93195Z"
+    }
+  ],
+  "priceDetail": {
+    "lowPrice": 132.42,
+    "marketPrice": 139.08,
+    "url": "https://tcgplayer.pxf.io/rQrNeQ?u=http%3A%2F%2Fstore.tcgplayer.com%2Fmassentry%3Fproductline%3DStar%20Wars%20Unlimited%26c%3D2 Shuttle ST-149 - Under Krennic's Authority [JTL]||3 Director Krennic - On the Verge of Greatness [JTL]||3 HK-87 Assassin Droid [LOF]||2 Shadow Cloaking [LAW]||2 Sudden Ferocity [SEC]||2 Arvel Skeen - Win and Walk Away [LAW]||3 The Legacy Run - Doomed Debris [LOF]||2 The Tree Remembers [LAW]||2 Admiral Ozzel - As Clumsy As He Is Stupid [IBH]||3 Droid Laser Turret [LAW]||2 Flash the Vents [LAW]||2 Retaliation [SEC]||2 Droid Missile Platform [JTL]||2 No Glory, Only Results [JTL]||2 Planetary Bombardment [JTL]||3 Chimaera - Reinforcing the Center [JTL]||2 System Shock [JTL]||2 Nightsister Warrior [LOF]||2 Honnah - Oink! Squee! [LAW]||3 Aggressive Negotiations [SEC]||2 Onyx Squadron Brute [JTL]||3 Condemn [SEC]||2 Shoot Down [JTL]||2 Collateral Damage [LAW]||2 Arihnda Pryce - On The Road To Power [SEC]||1 Fleet Interdictor [JTL]||2 Cavern Angels X-Wing [LAW]"
+  }
+}
