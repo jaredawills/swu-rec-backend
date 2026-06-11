@@ -117,6 +117,7 @@ def download_set_list():
     timeout = 0
     set_pattern = r'<a href="\/sets\/([^\"]*)" class="swudb-hover-link">([^<]*)<\/a>'
     date_pattern = r'Release Date:<\/span> ([^<]*)<\/p>'
+    # Jan 27, 2025
     sets = [] 
     while timeout < 5 and len(sets) < 1:
         time.sleep(2)
@@ -124,7 +125,11 @@ def download_set_list():
         html = driver.page_source
         sets = re.findall(set_pattern, html)
         dates = re.findall(date_pattern, html)
-        sets = [(s[0], s[1], d) for s, d in zip(sets, dates)]
+        sets = [[s[0], s[1], d] for s, d in zip(sets, dates)]
+    for i, [s_code, s_name, d] in enumerate(sets):
+        if not re.match(r'([A-Za-z]{3} [12]?\d, \d{4})', d):
+            sets[i][2] = 'Dec 31, 2099'
+    logger.debug(sets)
     logger.debug(f'Found {len(sets)} sets')
     sets = pd.DataFrame(sets, columns=['set_code', 'title', 'release_date'])
     sets['release_date'] = pd.to_datetime(sets['release_date']).dt.strftime('%Y-%m-%d')
