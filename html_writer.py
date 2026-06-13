@@ -30,6 +30,8 @@ def write_file(out_file, text):
 
 def replace_text(mapping, text):
     for key, value in mapping.items():
+        # logger.debug(key)
+        # logger.debug(value)
         text = re.sub(key, value, text)
     return text
 
@@ -106,22 +108,22 @@ def write_set_leader_pages(sets, cards, set_code, refresh_time=None):
         card_grid_query = re.sub('%card_id', leader.card_id, read_file('advanced_leader_query.sql'))  
         card_grid = db_conn.query(card_grid_query)
         sub_map = {
-            '%title': leader.title,
-            '%subtitle': leader.subtitle,
-            '%set_title': sets[sets['set_code']==set_code]['title'].values[0],
-            '%set_code': set_code,
-            '%card_num': re.sub('_', '-', leader.card_id),
-            '%aspects': re.sub(',', ' ', leader.aspects),
-            '%traits': ' '.join([t.title() for t in leader.traits.split(',')]),
-            '%front_text': leader.front_text,
-            '%back_text': leader.back_text,
-            '%front_art': leader.front_art,
-            '%back_art': leader.back_art,
-            '%set_filters': '\n'.join([f'<option value=\"{set.set_code}\">{set.title}</option>' for set in sets.itertuples() if set.set_code in card_grid['set_code'].drop_duplicates().values]),
-            '%card_grid': get_leader_articles(card_grid=card_grid),
-            '%decks': str(db_conn.query(f'SELECT COUNT(*) FROM deck_leaders WHERE card_id = \'{leader.card_id}\'').values[0][0]),
-            '%time': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(refresh_time)),
-            '%card_id': leader.card_id
+            '%title': leader.title or '',
+            '%subtitle': leader.subtitle or '',
+            '%set_title': sets[sets['set_code']==set_code]['title'].values[0] or '',
+            '%set_code': set_code or '',
+            '%card_num': re.sub('_', '-', leader.card_id) or '',
+            '%aspects': re.sub(',', ' ', leader.aspects) or '',
+            '%traits': ' '.join([t.title() for t in leader.traits.split(',')]) or '',
+            '%front_text': leader.front_text or '',
+            '%back_text': leader.back_text or '',
+            '%front_art': leader.front_art or '',
+            '%back_art': leader.back_art or '',
+            '%set_filters': '\n'.join([f'<option value=\"{set.set_code}\">{set.title}</option>' for set in sets.itertuples() if set.set_code in card_grid['set_code'].drop_duplicates().values]) or '',
+            '%card_grid': get_leader_articles(card_grid=card_grid) or '',
+            '%decks': str(db_conn.query(f'SELECT COUNT(*) FROM deck_leaders WHERE card_id = \'{leader.card_id}\'').values[0][0]) or '',
+            '%time': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(refresh_time)) or '',
+            '%card_id': leader.card_id or ''
         }
         write_file(Path(HTML_ROOT, f'{leader.set_code}/{leader.card_id}.html'), replace_text(sub_map, leader_html[:]))
   
