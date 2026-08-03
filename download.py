@@ -198,12 +198,20 @@ def scrape_swudb(decks, sortby='top', overlap_threshold=100):
 
 def scrape_sw_unlimited_db(decks, timeout_threshold=200, new_limit=500):
     source = 'sw-unlimited-db'
-    url = 'https://sw-unlimited-db.com/'
-    logger.debug(f'Connecting to {url}')
-    sw_unlimited_db_html = requests.get(url).text
+    url = 'https://sw-unlimited-db.com/decks/'
+    logger.debug('Launching Chrome Driver')
+    service = Service(executabole_path='')
+    options = Options()
+    options.add_argument('--headless')
+    driver = webdriver.Chrome(service=service, options=options)
+    logger.debug(f'Connecting to: {url}?sortBy=newest')
+    driver.get(url + '?sortBy=newest')
+    driver.execute_script('return document.body.scrollHeight')
+    driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')
+    time.sleep(5)
+    sw_unlimited_db_html = driver.page_source
     max_pattern = r'<a href="\/decks\/(\d+)"'
     max_id = int(re.search(max_pattern, sw_unlimited_db_html).group(1))
-    url += '/decks/'
     if str(decks[decks['source']==source]['deck_id'].max()) == 'nan':
         deck_id = 1500
     else:
