@@ -24,9 +24,12 @@ from webdriver_manager.chrome import ChromeDriverManager
 Options.page_load_strategy = 'eager'
 SERVICE = Service(ChromeDriverManager().install())
 OPTIONS = Options()
-OPTIONS.add_argument('--headless')
+OPTIONS.add_argument("--headless=new")  # modern headless mode
 OPTIONS.add_argument("--no-sandbox")
 OPTIONS.add_argument("--disable-dev-shm-usage")
+OPTIONS.add_argument("--disable-gpu")
+OPTIONS.add_argument("--remote-debugging-port=9222")
+OPTIONS.add_argument("--window-size=1920,1080")
 
 
 def read_file(in_file):
