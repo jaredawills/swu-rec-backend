@@ -22,6 +22,11 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 
 Options.page_load_strategy = 'eager'
+SERVICE = Service(ChromeDriverManager().install())
+OPTIONS = Options()
+OPTIONS.add_argument('--headless')
+OPTIONS.add_argument("--no-sandbox")
+OPTIONS.add_argument("--disable-dev-shm-usage")
 
 
 def read_file(in_file):
@@ -108,10 +113,7 @@ def download_set(set_code):
 def download_set_list():
     url = 'https://www.swudb.com/sets'
     logger.debug('Launching Chrome Driver')
-    service = Service(executable_path='')
-    options = Options()
-    options.add_argument('--headless')
-    driver = webdriver.Chrome(service=service, options=options)
+    driver = webdriver.Chrome(service=SERVICE, options=OPTIONS)
     logger.debug(f'Connecting to: {url}')
     driver.get(url)
     timeout = 0
@@ -163,7 +165,7 @@ def scrape_swudb(decks, sortby='top', overlap_threshold=100):
     service = Service(executable_path='')
     options = Options()
     options.add_argument('--headless')
-    driver = webdriver.Chrome(service=service, options=options)
+    driver = webdriver.Chrome(service=SERVICE, options=OPTIONS)
     logger.debug(f'Connecting to: {url}')
     driver.get(url)
     new_decks = pd.DataFrame([], columns=['deck_id', 'source'])
@@ -203,7 +205,7 @@ def scrape_sw_unlimited_db(decks, timeout_threshold=200, new_limit=500):
     service = Service(executabole_path='')
     options = Options()
     options.add_argument('--headless')
-    driver = webdriver.Chrome(service=service, options=options)
+    driver = webdriver.Chrome(service=SERVICE, options=OPTIONS)
     logger.debug(f'Connecting to: {url}?sortBy=newest')
     driver.get(url + '?sortBy=newest')
     driver.execute_script('return document.body.scrollHeight')
