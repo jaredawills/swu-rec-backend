@@ -28,6 +28,7 @@ OPTIONS.add_argument("--headless=new")  # modern headless mode
 OPTIONS.add_argument("--no-sandbox")
 OPTIONS.add_argument("--disable-dev-shm-usage")
 OPTIONS.add_argument("--disable-gpu")
+OPTIONS.add_argument("--disable-software-rasterizer")
 OPTIONS.add_argument("--remote-debugging-port=9222")
 OPTIONS.add_argument("--window-size=1920,1080")
 
