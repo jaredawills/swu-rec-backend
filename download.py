@@ -24,6 +24,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 Options.page_load_strategy = 'eager'
 # SERVICE = Service(ChromeDriverManager().install())
 SERVICE = Service("/usr/local/bin/chromedriver")
+logger.debug('Loading Driver Options')
 OPTIONS = Options()
 OPTIONS.add_argument("--headless=new")  # modern headless mode
 OPTIONS.add_argument("--no-sandbox")
