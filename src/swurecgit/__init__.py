@@ -18,13 +18,13 @@ def push(repo):
         repo.index.commit()
 
 def clone():
-    repo_url = "https://github.com/jaredawills/swu-rec-backend"
-    repo_path = r"C:\jw_apps\swu-rec_5.0"
+    repo_url = "https://github.com/jaredawills/swu-rec"
+    repo_path = SWU_REC
     Repo.clone_from(repo_url, repo_path)
 
 if __name__ == "__main__":
-    # clone()
-    pull(SWU_REC)
+    clone()
+    # pull(SWU_REC)
     pull(SWU_REC_BACKEND)
     swu_rec.main()
     push(SWU_REC)
