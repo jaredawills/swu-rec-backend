@@ -24,10 +24,12 @@ def clone():
     repo_path = SWU_REC
     Repo.clone_from(repo_url, repo_path)
 
-if __name__ == "__main__":
-    # clone()
+def main():
     pull(SWU_REC)
     pull(SWU_REC_BACKEND)
     swu_rec.main()
     push(SWU_REC)
     push(SWU_REC_BACKEND)
+
+if __name__ == "__main__":
+    main()
