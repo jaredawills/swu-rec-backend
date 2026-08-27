@@ -1,9 +1,9 @@
 from importlib.resources import files
 from git import Repo
-# import swu_rec
+import swu_rec
 
-# SWU_REC = files("swu_rec.data") / "html"
-# SWU_REC_BACKEND = files("swu_rec") / ".." / ".."
+SWU_REC = files("swu_rec.data") / "html"
+SWU_REC_BACKEND = files("swu_rec") / ".." / ".."
 
 def pull(repo):
     repo = Repo(repo)
@@ -23,9 +23,9 @@ def clone():
     Repo.clone_from(repo_url, repo_path)
 
 if __name__ == "__main__":
-    clone()
-    # pull(SWU_REC)
-    # pull(SWU_REC_BACKEND)
-    # swu_rec.main()
-    # push(SWU_REC)
-    # push(SWU_REC_BACKEND)
+    # clone()
+    pull(SWU_REC)
+    pull(SWU_REC_BACKEND)
+    swu_rec.main()
+    push(SWU_REC)
+    push(SWU_REC_BACKEND)
