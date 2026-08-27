@@ -1,0 +1,11 @@
+pyproject.toml
+src/swu_rec/__init__.py
+src/swu_rec/db.py
+src/swu_rec/download.py
+src/swu_rec/html_writer.py
+src/swu_rec.egg-info/PKG-INFO
+src/swu_rec.egg-info/SOURCES.txt
+src/swu_rec.egg-info/dependency_links.txt
+src/swu_rec.egg-info/entry_points.txt
+src/swu_rec.egg-info/requires.txt
+src/swu_rec.egg-info/top_level.txt

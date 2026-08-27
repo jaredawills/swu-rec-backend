@@ -1,0 +1,33 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Aug 19, 2026
+
+@author: jared
+"""
+
+import time
+from loguru import logger
+
+import swu_rec.download as download
+import swu_rec.html_writer as html_writer
+
+def main(): 
+    logger.info('OVERHAUL SETS')
+    download.overhaul_sets()
+    logger.info('UPDATE CARDS')
+    download.update_cards()
+    logger.info('GET NEW DECKS')
+    download.get_new_decks()
+    refresh_time = time.time()
+    logger.info('WRITE INDEX')
+    html_writer.write_index(refresh_time)
+    logger.info('WRITE ABOUT')
+    html_writer.write_about(refresh_time)
+    logger.info('WRITE LEADER PAGES')
+    html_writer.write_leader_pages(refresh_time)
+
+if __name__ == '__main__':
+    t_0 = time.time()
+    main()
+    t_1 = time.time()
+    logger.success(f'RUN COMPLETE - {int(t_1 - t_0)}s')

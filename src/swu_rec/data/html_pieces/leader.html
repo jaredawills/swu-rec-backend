@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SWU-Rec - %title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../leader_styles.css">
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5EY4762Y17"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5EY4762Y17');
+</script>
+<body>
+<header>
+    <div class="header-inner">
+      <a href="../index.html" class="logo-index">
+      	<div class="logo" href="../index.html">
+          <div class="logo-mark"></div>
+          <div>
+            <div class="logo-text-main">SWU-REC</div>
+            <div class="logo-text-sub">Star Wars: Unlimited Deck Recommendations</div>
+          </div>
+        </div>
+	    </a>
+      <nav>
+        <a href="../index.html">Leaders</a>
+        <a href="../about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+<main>
+
+  <nav class="breadcrumbs">
+    <a href="../index.html">Leaders</a> &raquo;
+    <a href="../index.html?set=%set_code">%set_title</a> &raquo;
+    <span>%title</span>
+  </nav>
+
+  <!-- LEADER HEADER -->
+  <section class="leader-header">
+    <div class="leader-title-block">
+      <h1>%title</h1>
+      <div class="leader-subtitle">%subtitle · %set_title (%card_num)</div>
+
+      <div class="leader-tags">
+        <span class="leader-tag-pill">%aspects</span>
+        <span class="leader-tag-pill">%traits</span>
+      </div>
+
+      <p class="leader-description">
+        %front_text
+        <br>-<br>
+        %back_text
+        <br><br><br>
+        %decks decks scanned
+        <br><br><br>
+      </p>
+      
+      <!-- SET FILTER -->
+      <div class="set-filter">
+        <h2>Filter by Set</h2>
+        <label for="setFilter">Set:</label>
+        <select id="setFilter">
+          <option value="all">All Sets</option>
+          %set_filters
+        </select>
+      </div>
+
+      <!-- CARD TYPE FILTER -->
+      <section class="type-filter">
+        <h2>Filter by Card Type</h2>
+        <div class="filter-links-grid">
+          <button class="filter-link type-btn active" data-type="all"><span>All</span> Types</button>
+          <button class="filter-link type-btn" data-type="Base"><span>Bases</span></button>
+          <button class="filter-link type-btn" data-type="Unit"><span>Units</span></button>
+          <button class="filter-link type-btn" data-type="Event"><span>Events</span></button>
+          <button class="filter-link type-btn" data-type="Upgrade"><span>Upgrades</span></button>
+        </div>
+      </section>
+
+      <!-- ASPECT FILTER -->
+      <section class="aspect-filter">
+        <h2>Filter by Aspect</h2>
+        <div class="filter-links-grid">
+          <button class="filter-link aspect-btn active" data-aspect="all"><span>All</span> Aspects</button>
+          <button class="filter-link aspect-btn aspect" data-aspect="Vigilance"><span>
+            <img src="../images/SWH_Aspects_Vigilance.png">
+          </span></button>
+          <button class="filter-link aspect-btn aspect" data-aspect="Command"><span>
+            <img src="../images/SWH_Aspects_Command.png">
+          </span></button>
+          <button class="filter-link aspect-btn aspect" data-aspect="Aggression"><span>
+            <img src="../images/SWH_Aspects_Aggression.png">
+          </span></button>
+          <button class="filter-link aspect-btn aspect" data-aspect="Cunning"><span>
+            <img src="../images/SWH_Aspects_Cunning.png">
+          </span></button>
+          <button class="filter-link aspect-btn aspect" data-aspect="Villainy"><span>
+            <img src="../images/SWH_Aspects_Villainy.png">
+          </span></button>
+          <button class="filter-link aspect-btn aspect" data-aspect="Heroism"><span>
+            <img src="../images/SWH_Aspects_Heroism.png">
+          </span></button>
+        </div>
+      </section>
+    </div>
+
+    <aside class="right-header">
+      <div class="leader-images-panel">
+        <h2>Leader Card</h2>
+        <div class="leader-flip-wrapper">
+          <img id="leaderCardImage"
+              src="%front_art"
+              data-front="%front_art"
+              data-back="%back_art"
+              alt="Leader card"
+              class="leader-card-img">
+
+          <button id="flipLeaderBtn" class="flip-btn">Flip Leader</button>
+        </div>
+      </div>
+      <div class="copy-btns">
+        <p>Use the button below to copy a link to this page that keeps your filters!</p>
+        <!-- <button id="copyBtn" class="copy-btn" data-copy="Your text to copy here">
+          Copy
+        </button> -->
+        <button id="copyShareLinkBtn" class="copy-btn">
+          Copy Share Link
+        </button>
+        <div id="copyToast" class="copy-toast">Copied!</div>
+      </div>
+    </aside>
+
+  </section>
+
+  
+
+
+  <!-- CARD GRID -->
+  <section>
+    <h2>Card Pool</h2>
+    <div class="card-grid">
+
+        %card_grid
+
+    </div>
+  </section>
+
+  <div id="cardZoomPopup"></div>
+
+</main>
+
+<footer>
+  SWU‑Rec – unofficial Star Wars: Unlimited reference. Card images and game content © their owners.<br>
+  Last Data Refresh: %time
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* ============================================================
+     FILTER STATE
+     ============================================================ */
+  let activeTypes   = new Set(["all"]);
+  let activeAspects = new Set(["all"]);
+  let activeSet     = "all";
+
+  /* ============================================================
+     ELEMENTS
+     ============================================================ */
+  const typeButtons   = document.querySelectorAll('.type-btn');
+  const aspectButtons = document.querySelectorAll('.aspect-btn');
+  const setFilter     = document.getElementById('setFilter');
+  const cards         = document.querySelectorAll('.card-tile');
+
+  /* ============================================================
+     USAGE STATS
+     ============================================================ */
+  function renderUsageStats() {
+    cards.forEach(tile => {
+      const usageContainer = tile.querySelector('.usage-stats');
+      const usageData = JSON.parse(tile.dataset.usage || "{}");
+      usageContainer.innerHTML = "";
+
+      const rows = [
+        { copies: 3, label: "3 copies" },
+        { copies: 2, label: "2 copies" },
+        { copies: 1, label: "1 copy" }
+      ];
+
+      rows.forEach(row => {
+        const pct = usageData[row.copies];
+        if (!pct || pct <= 0) return;
+        const div = document.createElement('div');
+        div.className = "usage-row";
+        div.textContent = `${row.label}: ${pct}% of decks`;
+        usageContainer.appendChild(div);
+      });
+    });
+  }
+
+  /* ============================================================
+     UNIFIED FILTER ENGINE
+     ============================================================ */
+  function applyFilters() {
+    cards.forEach(card => {
+      const cardTypes   = (card.dataset.type   || "").split(" ");
+      const cardAspects = (card.dataset.aspect || "").split(" ");
+      const cardSet     = card.dataset.set || "all";
+
+      let visible = true;
+
+      // TYPE FILTER
+      if (!activeTypes.has("all")) {
+        const matchesType = cardTypes.some(t => activeTypes.has(t));
+        if (!matchesType) visible = false;
+      }
+
+      // ASPECT FILTER
+      if (!activeAspects.has("all")) {
+        const matchesAspect = cardAspects.some(a => activeAspects.has(a));
+        if (!matchesAspect) visible = false;
+      }
+
+      // SET FILTER
+      if (activeSet !== "all" && cardSet !== activeSet) {
+        visible = false;
+      }
+
+      card.style.display = visible ? "" : "none";
+    });
+  }
+
+  /* ============================================================
+     APPLY FILTERS FROM URL (NEW)
+     ============================================================ */
+  function applyFiltersFromURL() {
+    const params = new URLSearchParams(window.location.search);
+
+    /* SET */
+    const setParam = params.get("set");
+    if (setParam) {
+      activeSet = setParam;
+      if (setFilter) setFilter.value = setParam;
+    }
+
+    /* TYPES */
+    const typesParam = params.get("types");
+    if (typesParam) {
+      activeTypes = new Set(typesParam.split(","));
+      activeTypes.delete("all");
+
+      typeButtons.forEach(btn => {
+        const t = btn.dataset.type;
+        btn.classList.toggle("active", activeTypes.has(t));
+      });
+    }
+
+    /* ASPECTS */
+    const aspectsParam = params.get("aspects");
+    if (aspectsParam) {
+      activeAspects = new Set(aspectsParam.split(","));
+      activeAspects.delete("all");
+
+      aspectButtons.forEach(btn => {
+        const a = btn.dataset.aspect;
+        btn.classList.toggle("active", activeAspects.has(a));
+      });
+    }
+  }
+
+  /* ============================================================
+     TYPE FILTER BUTTONS
+     ============================================================ */
+  typeButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const type = btn.dataset.type;
+
+      if (type === "all") {
+        activeTypes = new Set(["all"]);
+        typeButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        applyFilters();
+        return;
+      }
+
+      activeTypes.delete("all");
+      document.querySelector('.type-btn[data-type="all"]')?.classList.remove('active');
+
+      if (activeTypes.has(type)) {
+        activeTypes.delete(type);
+        btn.classList.remove('active');
+      } else {
+        activeTypes.add(type);
+        btn.classList.add('active');
+      }
+
+      if (activeTypes.size === 0) {
+        activeTypes.add("all");
+        document.querySelector('.type-btn[data-type="all"]')?.classList.add('active');
+      }
+
+      applyFilters();
+    });
+  });
+
+  /* ============================================================
+     ASPECT FILTER BUTTONS
+     ============================================================ */
+  aspectButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const aspect = btn.dataset.aspect;
+
+      if (aspect === "all") {
+        activeAspects = new Set(["all"]);
+        aspectButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        applyFilters();
+        return;
+      }
+
+      activeAspects.delete("all");
+      document.querySelector('.aspect-btn[data-aspect="all"]')?.classList.remove('active');
+
+      if (activeAspects.has(aspect)) {
+        activeAspects.delete(aspect);
+        btn.classList.remove('active');
+      } else {
+        activeAspects.add(aspect);
+        btn.classList.add('active');
+      }
+
+      if (activeAspects.size === 0) {
+        activeAspects.add("all");
+        document.querySelector('.aspect-btn[data-aspect="all"]')?.classList.add('active');
+      }
+
+      applyFilters();
+    });
+  });
+
+  /* ============================================================
+     SET FILTER
+     ============================================================ */
+  if (setFilter) {
+    setFilter.addEventListener('change', () => {
+      activeSet = setFilter.value;
+      applyFilters();
+    });
+  }
+
+  /* ============================================================
+     LEADER CARD FLIP
+     ============================================================ */
+  const leaderImg = document.getElementById("leaderCardImage");
+  const flipBtn   = document.getElementById("flipLeaderBtn");
+
+  if (leaderImg && flipBtn) {
+    let showingFront = true;
+
+    flipBtn.addEventListener("click", () => {
+      leaderImg.style.opacity = 0;
+
+      setTimeout(() => {
+        showingFront = !showingFront;
+        leaderImg.src = showingFront ? leaderImg.dataset.front : leaderImg.dataset.back;
+        leaderImg.style.opacity = 1;
+      }, 200);
+    });
+  }
+
+  /* ============================================================
+     HOVER ZOOM POPUP
+     ============================================================ */
+  const zoomPopup = document.getElementById("cardZoomPopup");
+
+  if (zoomPopup) {
+    document.querySelectorAll(".card-image-wrapper img").forEach(img => {
+      img.addEventListener("mouseenter", () => {
+        const zoomImg = document.createElement("img");
+        zoomImg.src = img.src;
+        zoomPopup.innerHTML = "";
+        zoomPopup.appendChild(zoomImg);
+
+        zoomPopup.style.width = img.clientWidth * 2.5 + "px";
+        zoomPopup.style.display = "block";
+      });
+
+      img.addEventListener("mousemove", (e) => {
+        const offset = 20;
+        zoomPopup.style.left = e.clientX + offset + "px";
+        zoomPopup.style.top  = e.clientY + offset - 2.5 * img.clientHeight / 2 + "px";
+      });
+
+      img.addEventListener("mouseleave", () => {
+        zoomPopup.style.display = "none";
+      });
+    });
+  }
+
+  /* ============================================================
+     SHARE LINK BUTTON (GUARDED)
+     ============================================================ */
+  const copyShareLinkBtn = document.getElementById("copyShareLinkBtn");
+  const copyToast        = document.getElementById("copyToast");
+
+  if (copyShareLinkBtn && copyToast) {
+    copyShareLinkBtn.addEventListener("click", () => {
+      const params = new URLSearchParams();
+
+      if (activeSet !== "all") params.set("set", activeSet);
+      if (!activeTypes.has("all"))   params.set("types",   [...activeTypes].join(","));
+      if (!activeAspects.has("all")) params.set("aspects", [...activeAspects].join(","));
+
+      const baseUrl  = window.location.origin + "/%set_code/%card_id.html";
+      const shareUrl = params.toString()
+        ? `${baseUrl}?${params.toString()}`
+        : baseUrl;
+
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        copyToast.classList.add("show");
+        setTimeout(() => copyToast.classList.remove("show"), 1500);
+      });
+    });
+  }
+
+  /* ============================================================
+     INITIALIZE (URL → STATE → FILTERS)
+     ============================================================ */
+  applyFiltersFromURL();  // NEW
+  renderUsageStats();
+  applyFilters();
+});
+</script>
+</body>
+</html>
