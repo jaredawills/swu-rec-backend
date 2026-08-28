@@ -19,6 +19,7 @@ def push(repo):
     if len(staged_diffs) > 0:
         today = date.today().strftime('%Y-%m-%d')
         repo.index.commit(f"Daily Update - {today}")
+        repo.push()
 
 def clone():
     repo_url = "https://github.com/jaredawills/swu-rec"
