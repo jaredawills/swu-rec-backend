@@ -80,14 +80,14 @@ def write_index(refresh_time=None):
 
 def get_leader_articles(card_grid=[], card_id=None):
     if type(card_grid) == list:
-        query = re.sub('%card_id', card_id, read_file(SQL / "advanced_leader_query.sql"))  
+        query = re.sub('%card_id', str(card_id), read_file(SQL / "advanced_leader_query.sql"))  
         card_grid = db.query(query)
     leader_card_article = read_file(HTML_PIECES / "leader_card_article.html")
     articles = []
     for card in card_grid.itertuples():
         sub_map = {
             '%card_type': card.card_type,
-            '%aspects': re.sub(',', ' ', card.aspects if card.aspects else ''),
+            '%aspects': re.sub(str(','), str(' '), str(card.aspects) if card.aspects else str('')),
             '%set_code': card.set_code if card.set_code else '',
             '%copy3': str(round(card.copy3 / card.tot_decks * 100, 2)),
             '%copy2': str(round(card.copy2 / card.tot_decks * 100, 2)),
