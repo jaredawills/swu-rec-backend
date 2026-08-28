@@ -1,2 +1,2 @@
 swu_rec
-swurecgit
+swu_rec_git
