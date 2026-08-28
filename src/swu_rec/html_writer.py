@@ -116,7 +116,7 @@ def write_set_leader_pages(sets, cards, set_code, refresh_time=None):
         },
         sql
     )
-    leaders = cards[cards["card_id"].isin(db.query(sql)["card_id"])]
+    leaders = cards[cards["card_id"].isin(db.query(sql)["card_id"])].sort_values('card_id')
     leader_html = read_file(HTML_PIECES / "leader.html")
     for leader in leaders.itertuples():
         logger.debug(f'Writing {leader.card_id}')
