@@ -34,7 +34,7 @@ def replace_text(mapping, text):
     for key, value in mapping.items():
         # logger.debug(key)
         # logger.debug(value)
-        text = re.sub(key, value, text)
+        text = re.sub(str(key), str(value), text)
     return text
 
 
