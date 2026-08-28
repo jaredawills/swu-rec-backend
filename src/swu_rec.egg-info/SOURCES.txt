@@ -9,4 +9,4 @@ src/swu_rec.egg-info/dependency_links.txt
 src/swu_rec.egg-info/entry_points.txt
 src/swu_rec.egg-info/requires.txt
 src/swu_rec.egg-info/top_level.txt
-src/swurecgit/__init__.py
+src/swu_rec_git/__init__.py

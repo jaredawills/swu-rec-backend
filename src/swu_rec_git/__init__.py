@@ -2,6 +2,7 @@ from importlib.resources import files
 from git import Repo
 import swu_rec
 from datetime import date
+from loguru import logger
 
 SWU_REC = files("swu_rec.data") / "html"
 SWU_REC_BACKEND = files("swu_rec") / ".." / ".."
@@ -25,9 +26,12 @@ def clone():
     Repo.clone_from(repo_url, repo_path)
 
 def main():
+    logger.info("Pulling Repos")
     pull(SWU_REC)
     pull(SWU_REC_BACKEND)
+    logger.info("Starting SWU_REC")
     swu_rec.main()
+    logger.info("Pushing Repos")
     push(SWU_REC)
     push(SWU_REC_BACKEND)
 

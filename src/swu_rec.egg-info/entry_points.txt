@@ -1,2 +1,3 @@
 [console_scripts]
 swu-rec = swu_rec:main
+swu-rec_daily = swu_rec_git:main
