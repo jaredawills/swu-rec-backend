@@ -8,7 +8,7 @@ Created on Apr 09, 2026
 import swu_rec.db as db
 import pandas as pd
 import time
-import regex as re
+import re
 from pathlib import Path
 from importlib.resources import files
 from datetime import date
