@@ -85,7 +85,8 @@ def get_leader_articles(card_grid=[], card_id=None):
     leader_card_article = read_file(HTML_PIECES / "leader_card_article.html")
     articles = []
     for card in card_grid.itertuples():
-        logger.debug(card.name)
+        logger.debug(card.title)
+        logger.debug(card.subtitle)
         logger.debug(card.card_id)
         logger.debug(card.aspects)
         sub_map = {
