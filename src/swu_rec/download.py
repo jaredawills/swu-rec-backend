@@ -186,7 +186,7 @@ def scrape_swudb(decks=None):
         if prev == count:
             static += 1
     logger.success(f"Complete! Found {count} new decks from swudb")
-    return len(decks)
+    return count
 
 def download_swudb(deck_id):
     today = time.strftime("%Y-%m-%d", time.localtime(time.time()))
@@ -242,7 +242,7 @@ def scrape_sw_unlimited_db(decks=None):
             logger.debug(f"Found | id: {deck_id:<13}\tc: {str(count):<5}\tsource: sw-unlimited-db")
             new_deck_ids = new_deck_ids.union({f"{deck_id}"})
     logger.success(f"Complete! Found {count} new decks from sw-unlimited-db")
-    return len(decks)
+    return count
 
 def download_sw_unlimited_db(deck_id):
     today = time.strftime("%Y-%m-%d", time.localtime(time.time()))
