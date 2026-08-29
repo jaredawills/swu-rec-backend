@@ -102,6 +102,8 @@ def download_set(set_code):
             logger.success(f'{rows.shape[0]}x {set_code} cards updated in database')
         else:
             logger.info(f'{set_code} has 0 available cards')
+    except KeyError as e:
+        logger.error(f'Unable to complete {set_code} || No data available'}
     except Exception as e:
         logger.error(f'Unable to complete {set_code} || {e}')
 
@@ -276,10 +278,14 @@ def download_sw_unlimited_db(deck_id):
             , columns=["deck_id", "source", "date_inserted", "date_created"]
         )
         db.append(decks, "decks")
+        time.sleep(0.05)
         h_decks = decks[["deck_id", "source", "date_inserted"]]
         db.append(h_decks, "historic_decks")
+        time.sleep(0.05)
         db.append(deck_leaders, "deck_leaders")
+        time.sleep(0.05)
         db.append(deck_cards, "deck_cards")
+        time.sleep(0.05)
         return 200
     return 404
 
