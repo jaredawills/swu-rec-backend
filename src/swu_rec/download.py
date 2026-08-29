@@ -103,7 +103,7 @@ def download_set(set_code):
         else:
             logger.info(f'{set_code} has 0 available cards')
     except KeyError as e:
-        logger.error(f'Unable to complete {set_code} || No data available'}
+        logger.error(f'Unable to complete {set_code} || No data available')
     except Exception as e:
         logger.error(f'Unable to complete {set_code} || {e}')
 
