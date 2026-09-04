@@ -218,14 +218,14 @@ def download_swudb(deck_id):
                 columns = ["deck_id", "source", "date_inserted", "date_created"]
             )
             db.append(decks, "decks")
-            time.sleep(0.1)
+            time.sleep(0.15)
             h_decks = decks[["deck_id", "source", "date_inserted"]]
             db.append(h_decks, "historic_decks")
-            time.sleep(0.1)
+            time.sleep(0.15)
             db.append(deck_leaders, "deck_leaders")
-            time.sleep(0.1)
+            time.sleep(0.15)
             db.append(deck_cards, "deck_cards")
-            time.sleep(0.1)
+            time.sleep(0.15)
             return 200
     return 404
 
@@ -282,14 +282,14 @@ def download_sw_unlimited_db(deck_id):
             , columns=["deck_id", "source", "date_inserted", "date_created"]
         )
         db.append(decks, "decks")
-        time.sleep(0.1)
+        time.sleep(0.15)
         h_decks = decks[["deck_id", "source", "date_inserted"]]
         db.append(h_decks, "historic_decks")
-        time.sleep(0.1)
+        time.sleep(0.15)
         db.append(deck_leaders, "deck_leaders")
-        time.sleep(0.1)
+        time.sleep(0.15)
         db.append(deck_cards, "deck_cards")
-        time.sleep(0.1)
+        time.sleep(0.15)
         return 200
     return 404
 
