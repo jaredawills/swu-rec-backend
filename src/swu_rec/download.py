@@ -42,6 +42,13 @@ def download_set(set_code):
     api_url = f'https://api.swu-db.com/cards/{set_code}'
     set_ = json.loads(requests.get(api_url).text)
     try:
+        for card in set_["data"]:
+            try: card["Aspects"] = ','.join(x["S"] for x in card["Aspects"])
+            except: card["Aspects"] = ''
+            logger.debug(card["Aspects"])
+            try: card["Traits"] = ','.join(x["S"] for x in card["Traits"])
+            except: card["Traits"] = ''
+            logger.debug(card["Traits"])
         df = pd.DataFrame(set_['data'])
         if df.shape[1] > 0:
             columns = ['card_id',
@@ -310,6 +317,7 @@ def sync_historic():
 
 if __name__ == '__main__':
     t_0 = time.time()
+    download_set("HMW")
     # overhaul_sets()
     # update_cards()
     # get_new_deck_ids()
