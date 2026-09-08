@@ -17,6 +17,10 @@ DATA_DIR = files("swu_rec") / "data"
 SQL_DIR = DATA_DIR / "sql"
 DB = DATA_DIR / "swurec.db"
 
+def connect(DB):
+    return sql.connect(DB)
+
+
 def create_tables():
     directory_path = Path(SQL_DIR / "tables")
     tables = [f.stem for f in directory_path.iterdir() if f.is_file()]
@@ -90,7 +94,8 @@ def write(df, table):
         df.to_sql(table, conn, if_exists='replace', index=False)
         conn.commit()
 
-def append(df, table):
+def append(df, table, conn=None):
+    conn = conn or sql.connect(DB)
     with sql.connect(DB) as conn:
         df.to_sql(table, conn, if_exists='append', index=False)
         conn.commit()

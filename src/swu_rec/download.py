@@ -16,11 +16,6 @@ from pathlib import Path
 from importlib.resources import files
 
 import time
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
 
 DATA_DIR = files("swu_rec") / "data"
 SQL_DIR = DATA_DIR / "sql"
@@ -45,10 +40,8 @@ def download_set(set_code):
         for card in set_["data"]:
             try: card["Aspects"] = ','.join(x["S"] for x in card["Aspects"])
             except: card["Aspects"] = ''
-            logger.debug(card["Aspects"])
             try: card["Traits"] = ','.join(x["S"] for x in card["Traits"])
             except: card["Traits"] = ''
-            logger.debug(card["Traits"])
         df = pd.DataFrame(set_['data'])
         if df.shape[1] > 0:
             columns = ['card_id',
@@ -224,15 +217,12 @@ def download_swudb(deck_id):
                 [[deck_id, "swudb", today, deck["publishDate"][:10]]],
                 columns = ["deck_id", "source", "date_inserted", "date_created"]
             )
-            db.append(decks, "decks")
-            time.sleep(0.15)
-            h_decks = decks[["deck_id", "source", "date_inserted"]]
-            db.append(h_decks, "historic_decks")
-            time.sleep(0.15)
-            db.append(deck_leaders, "deck_leaders")
-            time.sleep(0.15)
-            db.append(deck_cards, "deck_cards")
-            time.sleep(0.15)
+            with db.connect(db.DB) as conn:
+                db.append(decks, "decks", conn)
+                h_decks = decks[["deck_id", "source", "date_inserted"]]
+                db.append(h_decks, "historic_decks", conn)
+                db.append(deck_leaders, "deck_leaders", conn)
+                db.append(deck_cards, "deck_cards", conn)
             return 200
     return 404
 
@@ -288,15 +278,12 @@ def download_sw_unlimited_db(deck_id):
             [[deck_id, "sw-unlimited-db", today, created_date]]
             , columns=["deck_id", "source", "date_inserted", "date_created"]
         )
-        db.append(decks, "decks")
-        time.sleep(0.15)
-        h_decks = decks[["deck_id", "source", "date_inserted"]]
-        db.append(h_decks, "historic_decks")
-        time.sleep(0.15)
-        db.append(deck_leaders, "deck_leaders")
-        time.sleep(0.15)
-        db.append(deck_cards, "deck_cards")
-        time.sleep(0.15)
+        with db.connect(db.DB) as conn:
+            db.append(decks, "decks", conn)
+            h_decks = decks[["deck_id", "source", "date_inserted"]]
+            db.append(h_decks, "historic_decks", conn)
+            db.append(deck_leaders, "deck_leaders", conn)
+            db.append(deck_cards, "deck_cards", conn)
         return 200
     return 404
 
