@@ -95,10 +95,12 @@ def write(df, table):
         conn.commit()
 
 def append(df, table, conn=None):
-    conn = conn or sql.connect(DB)
-    with sql.connect(DB) as conn:
+    if conn:
         df.to_sql(table, conn, if_exists='append', index=False)
-        conn.commit()
+    else:
+        with sql.connect(DB) as conn:
+            df.to_sql(table, conn, if_exists='append', index=False)
+            conn.commit()
 
 def query(query):
     with sql.connect(DB) as conn:

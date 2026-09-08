@@ -161,7 +161,7 @@ def get_new_decks():
     logger.info(f'Total Decks: {total_ids_ct}')
 
 
-def scrape_swudb(decks=None):
+def scrape_swudb(decks=None, static_limit=10):
     logger.info("Looking for new SWUDB decks")
     decks = decks or db.read("decks")
     url = "https://swudb.com/api/decks/getNewDecks"
@@ -169,7 +169,7 @@ def scrape_swudb(decks=None):
     new_deck_ids = set([])
     count = 0
     static = 0
-    while static <= 10 and count <= 6000:
+    while static <= static_limit and count <= 6000:
         prev = count
         response = requests.post(
             url = url,
@@ -223,6 +223,7 @@ def download_swudb(deck_id):
                 db.append(h_decks, "historic_decks", conn)
                 db.append(deck_leaders, "deck_leaders", conn)
                 db.append(deck_cards, "deck_cards", conn)
+                conn.commit()
             return 200
     return 404
 
@@ -284,6 +285,7 @@ def download_sw_unlimited_db(deck_id):
             db.append(h_decks, "historic_decks", conn)
             db.append(deck_leaders, "deck_leaders", conn)
             db.append(deck_cards, "deck_cards", conn)
+            conn.commit()
         return 200
     return 404
 
