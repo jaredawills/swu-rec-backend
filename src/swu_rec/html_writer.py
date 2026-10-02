@@ -54,7 +54,7 @@ def write_index(refresh_time=None):
             leader_articles = []
             for leader in set_leaders.itertuples():
                 sub_map = {
-                    '%card_num': re.sub('_', '-', leader.card_id),
+                    '%card_num': re.sub('_', '-', str(leader.card_id)),
                     '%card_id': leader.card_id,
                     '%lower_title': leader.title.lower(),
                     '%title': leader.title,
@@ -99,7 +99,7 @@ def get_leader_articles(card_grid=[], card_id=None):
             '%front_art': card.front_art,
             '%title': card.title,
             '%subtitle': card.subtitle if card.subtitle else '',
-            '%card_num': re.sub('_', '-', card.card_id),
+            '%card_num': re.sub('_', '-', str(card.card_id)),
         }
         articles.append(replace_text(sub_map, leader_card_article[:]))
     return '\n'.join(articles)
@@ -120,16 +120,16 @@ def write_set_leader_pages(sets, cards, set_code, refresh_time=None):
     leader_html = read_file(HTML_PIECES / "leader.html")
     for leader in leaders.itertuples():
         logger.debug(f'Writing {leader.card_id}')
-        card_grid_query = re.sub('%card_id', leader.card_id, read_file(SQL / "advanced_leader_query.sql"))  
+        card_grid_query = re.sub('%card_id', str(leader.card_id), read_file(SQL / "advanced_leader_query.sql"))  
         card_grid = db.query(card_grid_query)
         sub_map = {
             '%title': leader.title or '',
             '%subtitle': leader.subtitle or '',
             '%set_title': sets[sets['set_code']==set_code]['title'].values[0] or '',
             '%set_code': set_code or '',
-            '%card_num': re.sub('_', '-', leader.card_id) or '',
-            '%aspects': re.sub(',', ' ', leader.aspects) or '',
-            '%traits': ' '.join([t.title() for t in leader.traits.split(',')]) or '',
+            '%card_num': re.sub('_', '-', str(leader.card_id)) or '',
+            '%aspects': re.sub(',', ' ', str(leader.aspects)) or '',
+            '%traits': ' '.join([t.title() for t in str(leader.traits).split(',')]) or '',
             '%front_text': leader.front_text or '',
             '%back_text': leader.back_text or '',
             '%front_art': leader.front_art or '',

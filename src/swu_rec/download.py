@@ -249,7 +249,10 @@ def scrape_sw_unlimited_db(decks=None):
 def download_sw_unlimited_db(deck_id):
     today = time.strftime("%Y-%m-%d", time.localtime(time.time()))
     url = f'https://api.sw-unlimited-db.com/umbraco/api/export/export?deckId={deck_id}&exportId=da7e2602-c2d7-4773-9ce1-9f1eb2b2ae8a'
-    response = requests.get(url)
+    try:
+        response = requests.get(url)
+    except:
+        return 504
     if response.status_code == 200:
         deck = response.json()
         deck_leaders = pd.DataFrame(
