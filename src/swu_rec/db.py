@@ -46,7 +46,7 @@ def clear_table(table):
 
 
 def drop_set(set_code):
-    sql_script = f'DELETE FROM cards WHERE set_code = {set_code}'
+    sql_script = f'DELETE FROM cards WHERE set_code = \'{set_code}\''
     with sql.connect(DB) as conn:
         cursor = conn.cursor()
         cursor.executescript(sql_script)
