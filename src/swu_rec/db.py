@@ -45,6 +45,13 @@ def clear_table(table):
         conn.commit()
 
 
+def drop_set(set_code):
+    sql_script = f'DELETE FROM cards WHERE set_code = {set_code}'
+    with sql.connect(DB) as conn:
+        cursor = conn.cursor()
+        cursor.executescript(sql_script)
+        conn.commit()
+
 def insert_into(table, columns, rows):
     if len(rows) > 0 and len(columns) > 0:
         with sql.connect(DB) as conn:

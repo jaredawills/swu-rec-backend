@@ -1,3 +1,4 @@
 html/
 .swu_rec
 swurec.db
+src/swu_rec/data/swurec.db

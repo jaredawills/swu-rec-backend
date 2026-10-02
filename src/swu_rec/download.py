@@ -98,6 +98,7 @@ def download_set(set_code):
                     ]]
             rows = rows[rows['VariantType']=='Normal']
             logger.debug(f'Found {rows.shape[0]} cards')
+            db.drop_set(set_code)
             db.insert_into('cards', columns, rows.values)
             logger.success(f'{rows.shape[0]}x {set_code} cards updated in database')
         else:
